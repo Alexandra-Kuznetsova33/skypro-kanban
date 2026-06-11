@@ -21,7 +21,7 @@ function PopNewCard() {
               </form>
               <Calendar 
                 activeDayClass=""
-                deadlineText='Выберите срок исполнения <span className="date-control"></span>.'
+                deadlineDate="09.09.23"
                 hiddenDateValue="08.09.2023"
               />
             </div>
