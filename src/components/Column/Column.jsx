@@ -1,3 +1,4 @@
+import { DEFAULT_TOPIC_CLASS, topicClassMap } from '../../constants';
 import Card from '../Card/Card';
 
 function Column({ title, cards }) {
@@ -11,7 +12,7 @@ function Column({ title, cards }) {
           <Card
             key={card.id}
             theme={card.topic}
-            themeClass={getThemeClass(card.topic)}   
+            themeClass={topicClassMap(card.topic) || DEFAULT_TOPIC_CLASS}   
             date={card.date}
             title={card.title}
           />
@@ -19,15 +20,6 @@ function Column({ title, cards }) {
       </div>
     </div>
   );
-}
-
-function getThemeClass(topic) {
-  switch (topic) {
-    case 'Web Design': return '_orange';
-    case 'Research': return '_green';
-    case 'Copywriting': return '_purple';
-    default: return '_gray';
-  }
 }
 
 export default Column;

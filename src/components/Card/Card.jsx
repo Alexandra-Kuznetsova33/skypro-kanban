@@ -6,13 +6,11 @@ function Card({ theme, themeClass, date, title }) {
           <div className={`card__theme ${themeClass}`}>
             <p className={themeClass}>{theme}</p>
           </div>
-          <a href="#popBrowse" target="_self">
-            <div className="card__btn">
+          <button className="card__btn" type="button" onClick={() => {}}>
               <div></div>
               <div></div>
               <div></div>
-            </div>
-          </a>
+          </button>
         </div>
         <div className="card__content">
           <a href="" target="_blank">

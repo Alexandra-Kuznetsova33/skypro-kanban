@@ -22,8 +22,8 @@ function Header() {
             </a>
           </div>
           <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+            <button className="header__btn-main-new _hover01" id="btnMainNew" type="button" onClick={() => {}}>
+              Создать новую задачу
             </button>
             <a
               href="#user-set-target"

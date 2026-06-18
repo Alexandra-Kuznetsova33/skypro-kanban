@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Column from "../Column/Column";
 import cardsData from "../../data";
+import { STATUSES } from "../../constants";
 
 function Main() {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,14 +13,7 @@ function Main() {
     return () => clearTimeout(timer);
   }, []);
 
-  const statuses = [
-    "Без статуса",
-    "Нужно сделать",
-    "В работе",
-    "Тестирование",
-    "Готово",
-  ];
-  const columns = statuses.map((status) => ({
+  const columns = STATUSES.map((status) => ({
     title: status,
     cards: cardsData.filter((card) => card.status === status),
   }));

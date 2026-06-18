@@ -7,8 +7,8 @@ function PopUser({ isOpen }) {
         <p>Темная тема</p>
         <input type="checkbox" className="checkbox" name="checkbox" />
       </div>
-      <button type="button" className="_hover03">
-        <a href="#popExit">Выйти</a>
+      <button type="button" className="_hover03" onClick={() => {}}>
+        Выйти
       </button>
     </div>
   );
