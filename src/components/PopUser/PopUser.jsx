@@ -1,16 +1,16 @@
+import { PopUserContainer, UserName, UserMail, ThemeToggle, ExitButton } from './PopUser.styled.js';
+
 function PopUser({ isOpen }) {
   return (
-    <div className="header__pop-user-set pop-user-set" id="user-set-target"  style={{ display: isOpen ? 'block' : 'none' }}>
-      <p className="pop-user-set__name">Ivan Ivanov</p>
-      <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-      <div className="pop-user-set__theme">
+    <PopUserContainer $isOpen={isOpen}>
+      <UserName>Ivan Ivanov</UserName>
+      <UserMail>ivan.ivanov@gmail.com</UserMail>
+      <ThemeToggle>
         <p>Темная тема</p>
-        <input type="checkbox" className="checkbox" name="checkbox" />
-      </div>
-      <button type="button" className="_hover03" onClick={() => {}}>
-        Выйти
-      </button>
-    </div>
+        <input type="checkbox" />
+      </ThemeToggle>
+      <ExitButton>Выйти</ExitButton>
+    </PopUserContainer>
   );
 }
 

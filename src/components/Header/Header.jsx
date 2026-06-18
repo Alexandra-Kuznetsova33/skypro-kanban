@@ -1,45 +1,38 @@
 import { useState } from "react";
 import PopUser from "../PopUser/PopUser";
+import {
+  StyledHeader,
+  HeaderBlock,
+  Logo,
+  Nav,
+  BtnMainNew,
+  UserLink,
+} from "./Header.styled.js";
 
-function Header() {
+function Header({ onNewCard }) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-  const toggleUserMenu = () => {
-    setIsUserMenuOpen(!isUserMenuOpen);
-  };
   return (
-    <header className="header">
+    <StyledHeader>
       <div className="container">
-        <div className="header__block">
-          <div className="header__logo _show _light">
+        <HeaderBlock>
+          <Logo>
             <a href="" target="_self">
               <img src="images/logo.png" alt="logo" />
             </a>
-          </div>
-          <div className="header__logo _dark">
-            <a href="" target="_self">
-              <img src="images/logo_dark.png" alt="logo" />
-            </a>
-          </div>
-          <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew" type="button" onClick={() => {}}>
+          </Logo>
+          <Nav>
+            <BtnMainNew id="btnMainNew" onClick={onNewCard}>
               Создать новую задачу
-            </button>
-            <a
-              href="#user-set-target"
-              className="header__user _hover02"
-              onClick={(e) => {
-                e.preventDefault();
-                toggleUserMenu();
-              }}
-            >
+            </BtnMainNew>
+            <UserLink onClick={() => setIsUserMenuOpen((prev) => !prev)}>
               Ivan Ivanov
-            </a>
+            </UserLink>
             <PopUser isOpen={isUserMenuOpen} />
-          </nav>
-        </div>
+          </Nav>
+        </HeaderBlock>
       </div>
-    </header>
+    </StyledHeader>
   );
 }
 
