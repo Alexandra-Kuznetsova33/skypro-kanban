@@ -7,12 +7,27 @@ function Column({ title, cards }) {
         <p>{title}</p>
       </div>
       <div className="cards">
-        {cards.map((card, i) => (
-          <Card key={i} theme={card.theme} themeClass={card.themeClass} date={card.date} />
+       {cards.map((card) => (
+          <Card
+            key={card.id}
+            theme={card.topic}
+            themeClass={getThemeClass(card.topic)}   
+            date={card.date}
+            title={card.title}
+          />
         ))}
       </div>
     </div>
   );
+}
+
+function getThemeClass(topic) {
+  switch (topic) {
+    case 'Web Design': return '_orange';
+    case 'Research': return '_green';
+    case 'Copywriting': return '_purple';
+    default: return '_gray';
+  }
 }
 
 export default Column;

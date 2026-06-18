@@ -31,7 +31,7 @@ function PopBrowse() {
               </form>
               <Calendar 
                 activeDayClass="_active-day"
-                deadlineText='Срок исполнения: <span className="date-control">09.09.23</span>'
+                deadlineDate="09.09.23"
                 hiddenDateValue="08.09.2023"
               />
             </div>

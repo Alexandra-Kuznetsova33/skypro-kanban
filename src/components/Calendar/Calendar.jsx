@@ -1,4 +1,4 @@
-function Calendar({ activeDayClass = '', deadlineText, hiddenDateValue }) {
+function Calendar({ activeDayClass = '', deadlineText, hiddenDateValue, deadlineDate }) {
   return (
     <div className="pop-new-card__calendar calendar">
       <p className="calendar__ttl subttl">Даты</p>
@@ -68,7 +68,12 @@ function Calendar({ activeDayClass = '', deadlineText, hiddenDateValue }) {
         </div>
         <input type="hidden" id="datepick_value" value={hiddenDateValue || '08.09.2023'} />
         <div className="calendar__period">
-          <p className="calendar__p date-end">{deadlineText}</p>
+          <p className="calendar__p date-end">{deadlineDate ? (
+              <>Срок исполнения: <span className="date-control">{deadlineDate}</span></>
+            ) : (
+              deadlineText
+            )}
+          </p>
         </div>
       </div>
     </div>
