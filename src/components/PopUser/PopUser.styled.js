@@ -71,13 +71,16 @@ export const ThemeToggle = styled.div`
 `;
 
 export const ExitButton = styled.button`
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
   width: 72px;
   height: 30px;
   background: transparent;
   color: ${({ theme }) => theme.accent};
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.accent};
-  cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.accentHover};
     color: ${({ theme }) => theme.textWhite};

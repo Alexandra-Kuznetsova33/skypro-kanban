@@ -1,4 +1,5 @@
 import { PopUserContainer, UserName, UserMail, ThemeToggle, ExitButton } from './PopUser.styled.js';
+import { Link } from 'react-router-dom';
 
 function PopUser({ isOpen }) {
   return (
@@ -9,7 +10,7 @@ function PopUser({ isOpen }) {
         <p>Темная тема</p>
         <input type="checkbox" />
       </ThemeToggle>
-      <ExitButton>Выйти</ExitButton>
+      <ExitButton as={Link} to="/exit">Выйти</ExitButton>
     </PopUserContainer>
   );
 }

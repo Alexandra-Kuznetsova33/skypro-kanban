@@ -1,6 +1,7 @@
 import { CardItem, CardWrapper, CardGroup, CardTheme, CardBtn, CardTitle, CardDate, CardContent } from './Card.styled.js';
+import { Link } from 'react-router-dom';
 
-function Card({ theme, themeClass, date, title, onOpenCard }) {
+function Card({ theme, themeClass, date, title, id }) {
    let bgColor, textColor;
   switch (themeClass) {
     case '_orange': bgColor = '#FFE4C2'; textColor = '#FF6D00'; break;
@@ -16,16 +17,14 @@ function Card({ theme, themeClass, date, title, onOpenCard }) {
           <CardTheme $bgColor={bgColor} $textColor={textColor}>
             <p>{theme}</p>
           </CardTheme>
-          <CardBtn onClick={onOpenCard}>
+          <CardBtn as={Link} to={`/card/${id}`}>
             <div></div>
             <div></div>
             <div></div>
           </CardBtn>
         </CardGroup>
         <CardContent>
-          <a href="" target="_blank">
             <CardTitle>{title}</CardTitle>
-          </a>
           <CardDate>
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
               <g clipPath="url(#clip0_1_415)">

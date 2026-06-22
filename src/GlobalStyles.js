@@ -50,17 +50,6 @@ const GlobalStyles = createGlobalStyle`
   #root {
     height: 100%;
   }
-
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    max-width: 100%;
-    width: 100%;
-    height: 100dvh;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-
   .container {
     max-width: 1260px;
     width: 100%;
