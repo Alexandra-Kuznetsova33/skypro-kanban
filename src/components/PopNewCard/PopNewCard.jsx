@@ -1,25 +1,52 @@
-import Calendar from '../Calendar/Calendar';
+import Calendar from "../Calendar/Calendar";
+import { TOPICS, topicClassMap } from '../../constants';
 
-function PopNewCard() {
+function PopNewCard({ isOpen, onClose }) {
   return (
-    <div className="pop-new-card" id="popNewCard">
+    <div className="pop-new-card" style={{ display: isOpen ? 'block' : 'none' }}>
       <div className="pop-new-card__container">
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <a href="#" className="pop-new-card__close">&#10006;</a>
+            <button
+              className="pop-new-card__close"
+              type="button"
+              onClick={onClose}
+            >
+              &#10006;
+            </button>
             <div className="pop-new-card__wrap">
-              <form className="pop-new-card__form form-new" id="formNewCard" action="#">
+              <form
+                className="pop-new-card__form form-new"
+                id="formNewCard"
+                action="#"
+              >
                 <div className="form-new__block">
-                  <label htmlFor="formTitle" className="subttl">Название задачи</label>
-                  <input className="form-new__input" type="text" name="name" id="formTitle" placeholder="Введите название задачи..." autoFocus />
+                  <label htmlFor="formTitle" className="subttl">
+                    Название задачи
+                  </label>
+                  <input
+                    className="form-new__input"
+                    type="text"
+                    name="name"
+                    id="formTitle"
+                    placeholder="Введите название задачи..."
+                    autoFocus
+                  />
                 </div>
                 <div className="form-new__block">
-                  <label htmlFor="textArea" className="subttl">Описание задачи</label>
-                  <textarea className="form-new__area" name="text" id="textArea" placeholder="Введите описание задачи..."></textarea>
+                  <label htmlFor="textArea" className="subttl">
+                    Описание задачи
+                  </label>
+                  <textarea
+                    className="form-new__area"
+                    name="text"
+                    id="textArea"
+                    placeholder="Введите описание задачи..."
+                  ></textarea>
                 </div>
               </form>
-              <Calendar 
+              <Calendar
                 activeDayClass=""
                 deadlineDate="09.09.23"
                 hiddenDateValue="08.09.2023"
@@ -28,18 +55,19 @@ function PopNewCard() {
             <div className="pop-new-card__categories categories">
               <p className="categories__p subttl">Категория</p>
               <div className="categories__themes">
-                <div className="categories__theme _orange _active-category">
-                  <p className="_orange">Web Design</p>
-                </div>
-                <div className="categories__theme _green">
-                  <p className="_green">Research</p>
-                </div>
-                <div className="categories__theme _purple">
-                  <p className="_purple">Copywriting</p>
-                </div>
+                {TOPICS.map(topic => (
+                  <div
+                    key={topic}
+                    className={`categories__theme ${topicClassMap[topic]}`}
+                  >
+                    <p className={topicClassMap[topic]}>{topic}</p>
+                  </div>
+                ))}
               </div>
             </div>
-            <button className="form-new__create _hover01" id="btnCreate">Создать задачу</button>
+            <button className="form-new__create _hover01" id="btnCreate">
+              Создать задачу
+            </button>
           </div>
         </div>
       </div>

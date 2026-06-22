@@ -1,33 +1,27 @@
+import { DEFAULT_TOPIC_CLASS, topicClassMap } from '../../constants.js';
 import Card from '../Card/Card';
+import { ColumnWrapper, ColumnTitle, CardsContainer } from './Column.styled.js';
 
-function Column({ title, cards }) {
+function Column({ title, cards, onOpenCard }) {
   return (
-    <div className="main__column column">
-      <div className="column__title">
+     <ColumnWrapper>
+      <ColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
-       {cards.map((card) => (
+      </ColumnTitle>
+      <CardsContainer>
+        {cards.map(card => (
           <Card
             key={card.id}
             theme={card.topic}
-            themeClass={getThemeClass(card.topic)}   
+            themeClass={topicClassMap[card.topic] || DEFAULT_TOPIC_CLASS}
             date={card.date}
             title={card.title}
+            onOpenCard={onOpenCard}
           />
         ))}
-      </div>
-    </div>
+      </CardsContainer>
+    </ColumnWrapper>
   );
-}
-
-function getThemeClass(topic) {
-  switch (topic) {
-    case 'Web Design': return '_orange';
-    case 'Research': return '_green';
-    case 'Copywriting': return '_purple';
-    default: return '_gray';
-  }
 }
 
 export default Column;

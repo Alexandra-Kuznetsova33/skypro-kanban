@@ -1,8 +1,8 @@
 import Calendar from '../Calendar/Calendar';
 
-function PopBrowse() {
+function PopBrowse({ isOpen, onClose }) {
   return (
-    <div className="pop-browse" id="popBrowse">
+    <div className="pop-browse" style={{ display: isOpen ? 'block' : 'none' }}>
       <div className="pop-browse__container">
         <div className="pop-browse__block">
           <div className="pop-browse__content">
@@ -46,7 +46,7 @@ function PopBrowse() {
                 <button className="btn-browse__edit _btn-bor _hover03"><a href="#">Редактировать задачу</a></button>
                 <button className="btn-browse__delete _btn-bor _hover03"><a href="#">Удалить задачу</a></button>
               </div>
-              <button className="btn-browse__close _btn-bg _hover01"><a href="#">Закрыть</a></button>
+              <button className="btn-browse__close _btn-bg _hover01"onClick={onClose}>Закрыть</button>
             </div>
             <div className="pop-browse__btn-edit _hide">
               <div className="btn-group">
