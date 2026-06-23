@@ -1,18 +1,9 @@
-import { useState, useEffect } from "react";
 import Column from "../Column/Column";
 import cardsData from "../../data";
 import { STATUSES } from "../../constants.js";
 import { StyledMain, MainBlock, MainContent, Loading } from './Main.styled.js';
 
-function Main({ onOpenCard }) {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+function Main({ isLoading }) {
 
   const columns = STATUSES.map((status) => ({
     title: status,
@@ -28,7 +19,7 @@ function Main({ onOpenCard }) {
           ) : (
             <MainContent>
               {columns.map(col => (
-                <Column key={col.title} title={col.title} cards={col.cards} onOpenCard={onOpenCard} />
+                <Column key={col.title} title={col.title} cards={col.cards} />
               ))}
             </MainContent>
           )}

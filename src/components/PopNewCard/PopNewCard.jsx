@@ -1,9 +1,9 @@
 import Calendar from "../Calendar/Calendar";
 import { TOPICS, topicClassMap } from '../../constants';
 
-function PopNewCard({ isOpen, onClose }) {
+function PopNewCard({ onClose }) {
   return (
-    <div className="pop-new-card" style={{ display: isOpen ? 'block' : 'none' }}>
+    <div className="pop-new-card" style={{ display:'block'  }}>
       <div className="pop-new-card__container">
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">

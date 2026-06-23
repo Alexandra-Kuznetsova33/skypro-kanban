@@ -12,6 +12,7 @@ function Column({ title, cards, onOpenCard }) {
         {cards.map(card => (
           <Card
             key={card.id}
+            id={card.id}
             theme={card.topic}
             themeClass={topicClassMap[card.topic] || DEFAULT_TOPIC_CLASS}
             date={card.date}

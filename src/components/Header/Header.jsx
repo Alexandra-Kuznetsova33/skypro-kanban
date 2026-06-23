@@ -8,8 +8,9 @@ import {
   BtnMainNew,
   UserLink,
 } from "./Header.styled.js";
+import { Link } from 'react-router-dom';
 
-function Header({ onNewCard }) {
+function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   return (
@@ -22,7 +23,7 @@ function Header({ onNewCard }) {
             </a>
           </Logo>
           <Nav>
-            <BtnMainNew id="btnMainNew" onClick={onNewCard}>
+            <BtnMainNew as={Link} to="/new-card">
               Создать новую задачу
             </BtnMainNew>
             <UserLink onClick={() => setIsUserMenuOpen((prev) => !prev)}>

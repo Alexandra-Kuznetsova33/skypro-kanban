@@ -35,7 +35,8 @@ export const BtnMainNew = styled.button`
   color: ${({ theme }) => theme.textWhite};
   border: none;
   font-size: 14px;
-  line-height: 1;
+  line-height: 30px;
+  text-align: center;
   font-weight: 500;
   margin-right: 20px;
   cursor: pointer;
