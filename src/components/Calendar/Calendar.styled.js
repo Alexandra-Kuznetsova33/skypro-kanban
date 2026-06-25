@@ -101,18 +101,15 @@ export const Cell = styled.div`
   letter-spacing: -0.2px;
   cursor: pointer;
   
-  /* цвета по умолчанию */
   color: #94A6BE;
   background-color: transparent;
   font-weight: 400;
 
-  /* transient props */
   opacity: ${({ $otherMonth }) => $otherMonth ? 0 : 1};
   background-color: ${({ $active }) => $active ? '#94A6BE' : 'transparent'};
   color: ${({ $active }) => $active ? '#FFFFFF' : '#94A6BE'};
   font-weight: ${({ $current }) => $current ? 700 : 400};
 
-  /* hover только для дней текущего месяца */
   &:hover {
     background-color: ${({ $otherMonth, $active }) => 
       $otherMonth || $active ? 'transparent' : '#EAEEF6'};
