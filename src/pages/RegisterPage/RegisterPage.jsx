@@ -1,27 +1,60 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 import { AuthWrapper, AuthForm,  AuthTitle, Input, Button, StyledLink, HintText, HintWrapper } from '../../components/Shared/AuthForm.styled';
+import { signUp } from '../../services/auth';
 
 
 const RegisterPage = () => {
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const { setIsAuth } = useContext(AuthContext);
+  const [error, setError] = useState('');
+  const { handleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsAuth(true);
-    navigate('/');
+    setError('');
+    if (!name.trim() || !login.trim() || !password.trim()) {
+      setError('Заполните все поля');
+      return;
+    }
+    try {
+      const user = await signUp({ name, login, password });
+      handleLogin(user);
+      navigate('/');
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
-    <AuthWrapper>  {}
+    <AuthWrapper>  
       <AuthForm onSubmit={handleSubmit}>
         <AuthTitle>Регистрация</AuthTitle>
-        <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <Input type="password" placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <Input
+          type="text"
+          placeholder="Имя"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <Input
+          type="text"
+          placeholder="Email"
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
+          required
+        />
+        <Input
+          type="password"
+          placeholder="Пароль"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
         <Button type="submit">Зарегистрироваться</Button>
         <HintWrapper>
           <HintText>Уже есть аккаунт? </HintText>

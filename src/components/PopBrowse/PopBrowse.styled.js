@@ -77,6 +77,10 @@ export const StatusTheme = styled.div`
     line-height: 1;
     letter-spacing: -0.14px;
   }
+
+  background-color: ${({ $active }) => ($active ? '#94A6BE' : 'transparent')};
+  color: ${({ $active }) => ($active ? '#FFFFFF' : '#94A6BE')};
+  border: ${({ $active }) => ($active ? 'none' : '0.7px solid rgba(148, 166, 190, 0.4)')};
 `;
 
 export const PopBrowseWrap = styled.div`
