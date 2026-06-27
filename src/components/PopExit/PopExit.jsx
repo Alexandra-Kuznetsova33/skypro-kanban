@@ -1,15 +1,21 @@
-import { PopExitOverlay, PopExitBlock, PopExitTitle, PopExitFormGroup, ExitYesButton, ExitNoButton } from './PopExit.styled.js';
+import {
+  PopExitOverlay,
+  PopExitBlock,
+  PopExitTitle,
+  PopExitFormGroup,
+  ExitYesButton,
+  ExitNoButton,
+} from './PopExit.styled.js';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 
 function PopExit({ onClose }) {
-
-  const { setIsAuth } = useContext(AuthContext);
+  const { handleLogout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleExit = () => {
-    setIsAuth(false);
+    handleLogout();
     navigate('/login');
   };
 
@@ -22,12 +28,16 @@ function PopExit({ onClose }) {
   };
 
   return (
-    <PopExitOverlay> 
+    <PopExitOverlay>
       <PopExitBlock>
         <PopExitTitle>Выйти из аккаунта?</PopExitTitle>
         <PopExitFormGroup>
-          <ExitYesButton type="button" onClick={handleExit}>Да, выйти</ExitYesButton>
-          <ExitNoButton type="button" onClick={handleClose}>Нет, остаться</ExitNoButton>
+          <ExitYesButton type='button' onClick={handleExit}>
+            Да, выйти
+          </ExitYesButton>
+          <ExitNoButton type='button' onClick={handleClose}>
+            Нет, остаться
+          </ExitNoButton>
         </PopExitFormGroup>
       </PopExitBlock>
     </PopExitOverlay>

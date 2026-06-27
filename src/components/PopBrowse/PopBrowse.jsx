@@ -1,67 +1,122 @@
+import { useNavigate } from 'react-router-dom';
 import Calendar from '../Calendar/Calendar';
+import { topicClassMap } from '../../constants';
+import {
+  PopBrowseOverlay,
+  PopBrowseBlock,
+  PopBrowseContent,
+  PopBrowseTopBlock,
+  PopBrowseTitle,
+  Status,
+  StatusP,
+  StatusThemes,
+  StatusTheme,
+  PopBrowseWrap,
+  FormBrowse,
+  FormBrowseBlock,
+  Subttl,
+  FormBrowseArea,
+  BtnBrowse,
+  BtnGroup,
+  BtnBor,
+  BtnBg,
+  ThemeTop,
+  ThemeDown,
+} from './PopBrowse.styled';
+import { CategoriesTheme } from '../Shared/CategoriesTheme.styled';
+import { formatDate } from '../../utils/formatDate';
 
 function PopBrowse({ card, onClose }) {
+  const navigate = useNavigate();
+
   if (!card) return <div>Задача не найдена</div>;
 
+  const themeClass = topicClassMap[card.topic] || '_gray';
+  const bgColor =
+    themeClass === '_orange'
+      ? '#FFE4C2'
+      : themeClass === '_green'
+        ? '#B4FDD1'
+        : themeClass === '_purple'
+          ? '#E9D4FF'
+          : '#94A6BE';
+  const textColor =
+    themeClass === '_orange'
+      ? '#FF6D00'
+      : themeClass === '_green'
+        ? '#06B16E'
+        : themeClass === '_purple'
+          ? '#9A48F1'
+          : '#FFFFFF';
+
+  const handleClose = () => {
+    if (onClose) onClose();
+    else navigate('/');
+  };
+
+  const formattedDate = card.date ? formatDate(card.date) : '';
+
   return (
-    <div className="pop-browse" style={{ display: 'block' }}>
-      <div className="pop-browse__container">
-        <div className="pop-browse__block">
-          <div className="pop-browse__content">
-            <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">{card.title}</h3>
-              <div className="categories__theme theme-top _orange _active-category">
-                <p className="_orange">{card.topic}</p>
-              </div>
-            </div>
-            <div className="pop-browse__status status">
-              <p className="status__p subttl">Статус</p>
-              <div className="status__themes">
-                <div className="status__theme _hide"><p>Без статуса</p></div>
-                <div className="status__theme _gray"><p className="_gray">Нужно сделать</p></div>
-                <div className="status__theme _hide"><p>В работе</p></div>
-                <div className="status__theme _hide"><p>Тестирование</p></div>
-                <div className="status__theme _hide"><p>Готово</p></div>
-              </div>
-            </div>
-            <div className="pop-browse__wrap">
-              <form className="pop-browse__form form-browse" id="formBrowseCard" action="#">
-                <div className="form-browse__block">
-                  <label htmlFor="textArea01" className="subttl">Описание задачи</label>
-                  <textarea className="form-browse__area" name="text" id="textArea01" readOnly placeholder="Введите описание задачи..."></textarea>
-                </div>
-              </form>
-              <Calendar 
-                activeDayClass="_active-day"
-                deadlineDate="09.09.23"
-                hiddenDateValue="08.09.2023"
-              />
-            </div>
-            <div className="theme-down__categories theme-down">
-              <p className="categories__p subttl">Категория</p>
-              <div className="categories__theme _orange _active-category">
-                <p className="_orange">Web Design</p>
-              </div>
-            </div>
-            <div className="pop-browse__btn-browse ">
-              <div className="btn-group">
-                <button className="btn-browse__edit _btn-bor _hover03"><a href="#">Редактировать задачу</a></button>
-                <button className="btn-browse__delete _btn-bor _hover03"><a href="#">Удалить задачу</a></button>
-              </div>
-              <button className="btn-browse__close _btn-bg _hover01"onClick={onClose}>Закрыть</button>
-            </div>
-            <div className="pop-browse__btn-edit _hide">
-              <div className="btn-group">
-                <button className="btn-edit__edit _btn-bg _hover01"><a href="#">Сохранить</a></button>
-                <button className="btn-edit__edit _btn-bor _hover03"><a href="#">Отменить</a></button>
-                <button className="btn-edit__delete _btn-bor _hover03" id="btnDelete"><a href="#">Удалить задачу</a></button>
-              </div>
-              <button className="btn-edit__close _btn-bg _hover01"><a href="#">Закрыть</a></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <PopBrowseOverlay>
+      <PopBrowseBlock>
+        <PopBrowseContent>
+          <PopBrowseTopBlock>
+            <PopBrowseTitle>{card.title}</PopBrowseTitle>
+            <ThemeTop>
+              <CategoriesTheme $bg={bgColor} $text={textColor} $active={true}>
+                <p>{card.topic}</p>
+              </CategoriesTheme>
+            </ThemeTop>
+          </PopBrowseTopBlock>
+          <Status>
+            <StatusP>Статус</StatusP>
+            <StatusThemes>
+              {[
+                'Без статуса',
+                'Нужно сделать',
+                'В работе',
+                'Тестирование',
+                'Готово',
+              ].map((status) => (
+                <StatusTheme key={status} $active={card.status === status}>
+                  <p>{status}</p>
+                </StatusTheme>
+              ))}
+            </StatusThemes>
+          </Status>
+          <PopBrowseWrap>
+            <FormBrowse id='formBrowseCard' action='#'>
+              <FormBrowseBlock>
+                <Subttl htmlFor='textArea01'>Описание задачи</Subttl>
+                <FormBrowseArea
+                  name='text'
+                  id='textArea01'
+                  readOnly
+                  placeholder='Введите описание задачи...'
+                  value={card.description || ''}
+                />
+              </FormBrowseBlock>
+            </FormBrowse>
+            <Calendar highlightedDate='09.09.23' deadlineDate={formattedDate} />
+          </PopBrowseWrap>
+          <ThemeDown>
+            <StatusP>Категория</StatusP>
+            <CategoriesTheme $bg={bgColor} $text={textColor} $active={true}>
+              <p>{card.topic}</p>
+            </CategoriesTheme>
+          </ThemeDown>
+          <BtnBrowse>
+            <BtnGroup>
+              <BtnBor type='button'>Редактировать задачу</BtnBor>
+              <BtnBor type='button'>Удалить задачу</BtnBor>
+            </BtnGroup>
+            <BtnBg type='button' onClick={handleClose}>
+              Закрыть
+            </BtnBg>
+          </BtnBrowse>
+        </PopBrowseContent>
+      </PopBrowseBlock>
+    </PopBrowseOverlay>
   );
 }
 

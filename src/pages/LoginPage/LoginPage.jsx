@@ -1,18 +1,30 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 import { AuthWrapper, AuthForm, AuthTitle, Input, Button, HintText, StyledLink, HintWrapper } from '../../components/Shared/AuthForm.styled';
+import { signIn } from '../../services/auth';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const { setIsAuth } = useContext(AuthContext);
+  const [error, setError] = useState('');
+  const { handleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsAuth(true);
-    navigate('/');
+    setError('');
+    if (!login.trim() || !password.trim()) {
+      setError('Заполните все поля');
+      return;
+    }
+    try {
+      const user = await signIn({ login, password });
+      handleLogin(user);
+      navigate('/');
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -20,10 +32,10 @@ const LoginPage = () => {
       <AuthForm onSubmit={handleSubmit}>
         <AuthTitle>Вход</AuthTitle>
         <Input
-          type="email"
+          type="text"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
           required
         />
         <Input
@@ -33,6 +45,7 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
         <Button type="submit">Войти</Button>
          <HintWrapper>
           <HintText>Нужно зарегистрироваться?</HintText>

@@ -1,7 +1,13 @@
 import Main from '../../components/Main/Main';
+import { Outlet } from 'react-router-dom';
 
-const MainPage = ({ isLoading }) => {
-  return <Main isLoading={isLoading} />;
+const MainPage = () => {
+  return (
+    <>
+      <Main />
+      <Outlet />
+    </>
+  );
 };
 
 export default MainPage;

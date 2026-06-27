@@ -1,5 +1,5 @@
-import { useState } from "react";
-import PopUser from "../PopUser/PopUser";
+import { useState } from 'react';
+import PopUser from '../PopUser/PopUser';
 import {
   StyledHeader,
   HeaderBlock,
@@ -7,7 +7,7 @@ import {
   Nav,
   BtnMainNew,
   UserLink,
-} from "./Header.styled.js";
+} from './Header.styled.js';
 import { Link } from 'react-router-dom';
 
 function Header() {
@@ -15,15 +15,15 @@ function Header() {
 
   return (
     <StyledHeader>
-      <div className="container">
+      <div className='container'>
         <HeaderBlock>
           <Logo>
-            <a href="" target="_self">
-              <img src="images/logo.png" alt="logo" />
+            <a href='' target='_self'>
+              <img src='images/logo.png' alt='logo' />
             </a>
           </Logo>
           <Nav>
-            <BtnMainNew as={Link} to="/new-card">
+            <BtnMainNew as={Link} to='/new-card'>
               Создать новую задачу
             </BtnMainNew>
             <UserLink onClick={() => setIsUserMenuOpen((prev) => !prev)}>
