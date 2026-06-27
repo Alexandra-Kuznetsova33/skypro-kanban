@@ -1,14 +1,21 @@
 import axios from 'axios';
+import axiosConfig from './apiConfig';
 
 const KANBAN_URL = 'https://wedev-api.sky.pro/api/kanban';
+
+
+const authConfig = (token) => ({
+  ...axiosConfig,
+  headers: {
+    ...axiosConfig.headers,
+    Authorization: `Bearer ${token}`,
+  },
+});
 
 // Получить список всех задач
 export async function fetchTasks({ token }) {
   try {
-    const response = await axios.get(KANBAN_URL, {
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': '' },
-      timeout: 10000,
-    });
+    const response = await axios.get(KANBAN_URL, authConfig(token));
     return response.data.tasks;
   } catch (error) {
     throw new Error(error.response?.data?.error || 'Ошибка получения задач', {
@@ -20,10 +27,7 @@ export async function fetchTasks({ token }) {
 // Получить одну задачу по id
 export async function fetchTask({ token, id }) {
   try {
-    const response = await axios.get(`${KANBAN_URL}/${id}`, {
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': '' },
-      timeout: 10000,
-    });
+    const response = await axios.get(`${KANBAN_URL}/${id}`, authConfig(token));
     return response.data.task;
   } catch (error) {
     throw new Error(error.response?.data?.error || 'Ошибка получения задачи', {
@@ -35,13 +39,7 @@ export async function fetchTask({ token, id }) {
 // Создать новую задачу
 export async function createTask({ token, task }) {
   try {
-    const response = await axios.post(KANBAN_URL, task, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': '',
-      },
-      timeout: 10000,
-    });
+    const response = await axios.post(KANBAN_URL, task, authConfig(token));
     return response.data.tasks;
   } catch (error) {
     throw new Error(error.response?.data?.error || 'Ошибка создания задачи', {
@@ -53,13 +51,7 @@ export async function createTask({ token, task }) {
 // Редактировать задачу
 export async function updateTask({ token, id, task }) {
   try {
-    const response = await axios.put(`${KANBAN_URL}/${id}`, task, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': '',
-      },
-      timeout: 10000,
-    });
+    const response = await axios.put(`${KANBAN_URL}/${id}`, task, authConfig(token));
     return response.data.tasks;
   } catch (error) {
     throw new Error(error.response?.data?.error || 'Ошибка обновления задачи', {
@@ -71,10 +63,7 @@ export async function updateTask({ token, id, task }) {
 // Удалить задачу
 export async function deleteTask({ token, id }) {
   try {
-    const response = await axios.delete(`${KANBAN_URL}/${id}`, {
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': '' },
-      timeout: 10000,
-    });
+    const response = await axios.delete(`${KANBAN_URL}/${id}`, authConfig(token));
     return response.data.tasks;
   } catch (error) {
     throw new Error(error.response?.data?.error || 'Ошибка удаления задачи', {
