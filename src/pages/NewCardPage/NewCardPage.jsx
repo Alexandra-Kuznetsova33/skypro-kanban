@@ -1,35 +1,28 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../context/AuthContext';
-import { createTask } from '../../services/kanban';
+import { useTasks } from '../../context/useTasks';
 import PopNewCard from '../../components/PopNewCard/PopNewCard';
 
 const NewCardPage = () => {
-  const { user } = useContext(AuthContext);
+  const { addTask } = useTasks();
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
   const handleCreate = async (formData) => {
-    if (!user) {
-      setError('Не авторизован');
-      return;
-    }
-    try {
-      await createTask({ token: user.token, task: formData });
+    const success = await addTask(formData);
+    if (success) {
       navigate('/');
-    } catch (err) {
-      setError(err.message);
+    } else {
+      setError('Не удалось создать задачу');
     }
   };
 
   return (
-    <>
       <PopNewCard 
         onClose={() => navigate('/')} 
         onCreate={handleCreate} 
         error={error} 
       />
-    </>
   );
 };
 
