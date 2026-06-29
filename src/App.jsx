@@ -1,3 +1,5 @@
+import { useAuth } from './context/useAuth';
+import { TaskProvider } from './context/TaskContext';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 import { theme } from './theme';
@@ -10,15 +12,15 @@ import ExitPage from './pages/ExitPage/ExitPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import Wrapper from './components/Shared/Wrapper.styled';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthProvider';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
+  const { user } = useAuth();
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <AuthProvider>
+        <TaskProvider key={user?.id ?? 'no-user'}>
           <Wrapper>
             <Routes>
               <Route element={<ProtectedRoute />}>
@@ -34,7 +36,7 @@ function App() {
               <Route path='*' element={<NotFoundPage />} />
             </Routes>
           </Wrapper>
-        </AuthProvider>
+        </TaskProvider>
       </ThemeProvider>
     </BrowserRouter>
   );
