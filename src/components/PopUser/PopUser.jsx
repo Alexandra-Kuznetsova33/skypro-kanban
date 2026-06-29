@@ -1,3 +1,4 @@
+import { useAuth } from '../../context/useAuth';
 import {
   PopUserContainer,
   UserName,
@@ -8,10 +9,11 @@ import {
 import { Link } from 'react-router-dom';
 
 function PopUser({ isOpen }) {
+  const { user } = useAuth();
   return (
     <PopUserContainer $isOpen={isOpen}>
-      <UserName>Ivan Ivanov</UserName>
-      <UserMail>ivan.ivanov@gmail.com</UserMail>
+      <UserName>{user.name || 'Пользователь'}</UserName>
+      <UserMail>{user.login || 'email@example.com'}</UserMail>
       <ThemeToggle>
         <p>Темная тема</p>
         <input type='checkbox' />

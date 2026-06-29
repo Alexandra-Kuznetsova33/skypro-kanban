@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PopUser from '../PopUser/PopUser';
+import { useAuth } from '../../context/useAuth';
 import {
   StyledHeader,
   HeaderBlock,
@@ -12,6 +13,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <StyledHeader>
@@ -27,7 +29,7 @@ function Header() {
               Создать новую задачу
             </BtnMainNew>
             <UserLink onClick={() => setIsUserMenuOpen((prev) => !prev)}>
-              Ivan Ivanov
+              {user?.name || 'Пользователь'}
             </UserLink>
             <PopUser isOpen={isUserMenuOpen} />
           </Nav>
