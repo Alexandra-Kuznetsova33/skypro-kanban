@@ -29,3 +29,13 @@ export const Loading = styled.div`
   color: ${({ theme }) => theme.textGray};
   letter-spacing: -0.14px;
 `;
+
+export const Empty = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  font-size: 24px;
+  color: ${({ theme }) => theme.textGray};
+  letter-spacing: -0.14px;
+`;

@@ -1,21 +1,16 @@
-import styled from 'styled-components';
-
-const NotFoundWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f1f1f1;
-  font-size: 24px;
-  color: #333;
-`;
+import {
+  NotFoundWrapper,
+  Code,
+  Message,
+  HomeLink,
+} from './NotFoundPage.styled';
 
 const NotFoundPage = () => {
   return (
     <NotFoundWrapper>
-      <h1>404</h1>
-      <p>Страница не найдена</p>
+      <Code>404</Code>
+      <Message>Страница не найдена</Message>
+      <HomeLink to='/'>Вернуться на главную</HomeLink>
     </NotFoundWrapper>
   );
 };

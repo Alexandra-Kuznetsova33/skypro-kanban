@@ -44,17 +44,17 @@ export const ThemeToggle = styled.div`
     line-height: 21px;
     letter-spacing: -0.14px;
   }
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     position: relative;
     width: 24px;
     height: 13px;
     border-radius: 100px;
-    background: #EAEEF6;
+    background: ${({ theme }) => theme.bgMain};
     outline: none;
     -webkit-appearance: none;
     appearance: none;
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 1px;
       left: 1px;
@@ -71,7 +71,7 @@ export const ThemeToggle = styled.div`
 `;
 
 export const ExitButton = styled.button`
-  display: inline-flex; 
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
@@ -82,7 +82,7 @@ export const ExitButton = styled.button`
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.accent};
   &:hover {
-    background-color: ${({ theme }) => theme.accentHover};
+    background-color: ${({ theme }) => theme.accentFill};
     color: ${({ theme }) => theme.textWhite};
   }
 `;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Calendar from '../Calendar/Calendar';
-import { TOPICS, topicClassMap } from '../../constants';
+import { TOPICS, topicClassMap, topicColorKeys } from '../../constants';
 import {
   PopNewCardOverlay,
   PopNewCardBlock,
@@ -14,29 +14,66 @@ import {
   FormNewInput,
   FormNewArea,
   FormNewCreate,
+  ErrorText,
   Categories,
   CategoriesP,
   CategoriesThemes,
 } from './PopNewCard.styled';
 import { CategoriesTheme } from '../Shared/CategoriesTheme.styled';
+import { toISOString, formatLocalDate } from '../../utils/formatDate';
 
-function PopNewCard({ onClose, onCreate, error }) {
+function PopNewCard({ onClose, onCreate }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [topic, setTopic] = useState('Web Design');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [errors, setErrors] = useState({ title: false, description: false });
+
+  const handleTitleChange = (e) => {
+    const value = e.target.value;
+    setTitle(value);
+    if (value.trim()) {
+      setErrors((prev) => ({ ...prev, title: false }));
+    }
+  };
+
+  const handleDescriptionChange = (e) => {
+    const value = e.target.value;
+    setDescription(value);
+    if (value.trim()) {
+      setErrors((prev) => ({ ...prev, description: false }));
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newErrors = {
+      title: !title.trim(),
+      description: !description.trim(),
+    };
+    setErrors(newErrors);
+    if (newErrors.title || newErrors.description) return;
     if (onCreate) {
+      const dateToSend = selectedDate
+        ? toISOString(selectedDate)
+        : new Date().toISOString();
       onCreate({
-        title: title.trim() || 'Новая задача',
+        title: title.trim(),
         topic,
         status: 'Без статуса',
-        description,
-        date: new Date().toISOString(),
+        description: description.trim(),
+        date: dateToSend,
       });
     }
   };
+
+  const handleDateChange = (dateString) => {
+    setSelectedDate(dateString);
+  };
+
+  const formattedDate = formatLocalDate(selectedDate);
+  const isButtonDisabled = errors.title || errors.description;
+
   return (
     <PopNewCardOverlay>
       <PopNewCardBlock>
@@ -53,10 +90,13 @@ function PopNewCard({ onClose, onCreate, error }) {
                   id='formTitle'
                   placeholder='Введите название задачи...'
                   value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={handleTitleChange}
+                  $error={errors.title}
                   autoFocus
                 />
+                {errors.title && <ErrorText>Введите название задачи</ErrorText>}
               </FormNewBlock>
+
               <FormNewBlock>
                 <Subttl htmlFor='textArea'>Описание задачи</Subttl>
                 <FormNewArea
@@ -64,37 +104,31 @@ function PopNewCard({ onClose, onCreate, error }) {
                   id='textArea'
                   placeholder='Введите описание задачи...'
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={handleDescriptionChange}
+                  $error={errors.description}
                 />
+                {errors.description && (
+                  <ErrorText>Введите описание задачи</ErrorText>
+                )}
               </FormNewBlock>
             </FormNew>
             <Calendar
-              highlightedDate=''
+              highlightedDate={formattedDate}
+              deadlineDate={formattedDate}
               deadlineText='Выберите срок исполнения'
+              onDateChange={handleDateChange}
             />
           </PopNewCardWrap>
           <Categories>
             <CategoriesP>Категория</CategoriesP>
             <CategoriesThemes>
               {TOPICS.map((t) => {
-                const cls = topicClassMap[t];
-                const bg =
-                  cls === '_orange'
-                    ? '#FFE4C2'
-                    : cls === '_green'
-                      ? '#B4FDD1'
-                      : '#E9D4FF';
-                const text =
-                  cls === '_orange'
-                    ? '#FF6D00'
-                    : cls === '_green'
-                      ? '#06B16E'
-                      : '#9A48F1';
+                const key = topicClassMap[t] || '_gray';
+                const colorKey = topicColorKeys[key] || 'gray';
                 return (
                   <CategoriesTheme
                     key={t}
-                    $bg={bg}
-                    $text={text}
+                    $colorKey={colorKey}
                     $active={t === topic}
                     onClick={() => setTopic(t)}
                   >
@@ -104,8 +138,11 @@ function PopNewCard({ onClose, onCreate, error }) {
               })}
             </CategoriesThemes>
           </Categories>
-          {error && <p style={{ color: 'red', margin: '10px 0' }}>{error}</p>}
-          <FormNewCreate type='submit' form='formNewCard'>
+          <FormNewCreate
+            type='submit'
+            form='formNewCard'
+            disabled={isButtonDisabled}
+          >
             Создать задачу
           </FormNewCreate>
         </PopNewCardContent>

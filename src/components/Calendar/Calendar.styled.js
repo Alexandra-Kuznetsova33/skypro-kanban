@@ -8,7 +8,7 @@ export const CalendarWrapper = styled.div`
 export const CalendarTitle = styled.p`
   margin-bottom: 14px;
   padding: 0 7px;
-  color: #000;
+  color: ${({ theme }) => theme.textDark};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -28,7 +28,7 @@ export const CalendarNav = styled.div`
 `;
 
 export const CalendarMonth = styled.div`
-  color: #94A6BE;
+  color: ${({ theme }) => theme.textGray};
   font-size: 14px;
   line-height: 25px;
   font-weight: 600;
@@ -48,7 +48,7 @@ export const NavAction = styled.div`
   align-items: center;
   justify-content: center;
   svg {
-    fill: #94A6BE;
+    fill: ${({ theme }) => theme.textGray};
   }
 `;
 
@@ -66,7 +66,7 @@ export const DaysNames = styled.div`
 `;
 
 export const DayName = styled.div`
-  color: #94A6BE;
+  color: ${({ theme }) => theme.textGray};
   font-size: 10px;
   font-weight: 500;
   line-height: normal;
@@ -78,7 +78,8 @@ export const DayName = styled.div`
 
 export const Cells = styled.div`
   width: 182px;
-  height: 126px;
+  height: auto;
+  min-height: 126px;
   display: flex;
   flex-wrap: wrap;
   @media (max-width: 660px) {
@@ -100,20 +101,22 @@ export const Cell = styled.div`
   line-height: 1;
   letter-spacing: -0.2px;
   cursor: pointer;
-  
-  color: #94A6BE;
+
+  color: ${({ theme }) => theme.textGray};
   background-color: transparent;
   font-weight: 400;
 
-  opacity: ${({ $otherMonth }) => $otherMonth ? 0 : 1};
-  background-color: ${({ $active }) => $active ? '#94A6BE' : 'transparent'};
-  color: ${({ $active }) => $active ? '#FFFFFF' : '#94A6BE'};
-  font-weight: ${({ $current }) => $current ? 700 : 400};
+  background-color: ${({ $active, theme }) =>
+    $active ? theme.textGray : 'transparent'};
+  color: ${({ $active, theme }) =>
+    $active ? theme.textWhite : theme.textGray};
+  font-weight: ${({ $current }) => ($current ? 700 : 400)};
 
   &:hover {
-    background-color: ${({ $otherMonth, $active }) => 
-      $otherMonth || $active ? 'transparent' : '#EAEEF6'};
-    color: ${({ $otherMonth }) => $otherMonth ? '#94A6BE' : '#94A6BE'};
+    background-color: ${({ $active, theme }) =>
+      $active ? theme.textGray : theme.bgMain};
+    color: ${({ $active, theme }) =>
+      $active ? theme.textWhite : theme.textGray};
   }
 
   @media (max-width: 660px) {
@@ -125,14 +128,15 @@ export const Cell = styled.div`
 
 export const CalendarPeriod = styled.div`
   padding: 0 7px;
+  margin-top: 4px;
 `;
 
 export const CalendarP = styled.p`
-  color: #94A6BE;
+  color: ${({ theme }) => theme.textGray};
   font-size: 10px;
   line-height: 1;
   span {
-    color: #000000;
+    color: ${({ theme }) => theme.textDark};
   }
   @media (max-width: 660px) {
     font-size: 14px;

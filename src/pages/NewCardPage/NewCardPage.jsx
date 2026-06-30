@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useTasks } from '../../context/useTasks';
 import PopNewCard from '../../components/PopNewCard/PopNewCard';
@@ -6,24 +6,18 @@ import PopNewCard from '../../components/PopNewCard/PopNewCard';
 const NewCardPage = () => {
   const { addTask } = useTasks();
   const navigate = useNavigate();
-  const [error, setError] = useState('');
 
   const handleCreate = async (formData) => {
     const success = await addTask(formData);
     if (success) {
+      toast.success('Задача создана!');
       navigate('/');
     } else {
-      setError('Не удалось создать задачу');
+      toast.error('Не удалось создать задачу');
     }
   };
 
-  return (
-      <PopNewCard 
-        onClose={() => navigate('/')} 
-        onCreate={handleCreate} 
-        error={error} 
-      />
-  );
+  return <PopNewCard onClose={() => navigate('/')} onCreate={handleCreate} />;
 };
 
 export default NewCardPage;

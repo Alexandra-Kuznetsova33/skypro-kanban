@@ -31,7 +31,7 @@ export const BtnMainNew = styled.button`
   width: 178px;
   height: 30px;
   border-radius: 4px;
-  background-color: ${({ theme }) => theme.accent};
+  background-color: ${({ theme }) => theme.accentFill};
   color: ${({ theme }) => theme.textWhite};
   border: none;
   font-size: 14px;
@@ -68,7 +68,7 @@ export const UserLink = styled.button`
   border: none;
   cursor: pointer;
   &::after {
-    content: "";
+    content: '';
     display: block;
     width: 6px;
     height: 6px;
@@ -80,9 +80,9 @@ export const UserLink = styled.button`
     padding: 0;
   }
   &:hover {
-    color: ${({ theme }) => theme.accentHover};
+    color: ${({ theme }) => theme.accentFill};
     &::after {
-      border-color: ${({ theme }) => theme.accentHover};
+      border-color: ${({ theme }) => theme.accentFill};
     }
   }
 `;

@@ -24,6 +24,10 @@ const GlobalStyles = createGlobalStyle`
     outline: none;
   }
 
+  button, a, ._btn {
+  transition: all 0.8s ease;
+}
+
   ul li {
     list-style: none;
   }
@@ -44,7 +48,7 @@ const GlobalStyles = createGlobalStyle`
     width: 100%;
     height: 100%;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    color: #000000;
+    color: ${({ theme }) => theme.textDark};
   }
 
   #root {

@@ -1,8 +1,12 @@
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from './context/useAuth';
 import { TaskProvider } from './context/TaskContext';
+import { ThemeProviderComponent } from './context/ThemeContext';
+import { useTheme } from './context/useTheme';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
-import { theme } from './theme';
+import { lightTheme, darkTheme } from './theme';
 import MainPage from './pages/MainPage/MainPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
@@ -16,6 +20,8 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   const { user } = useAuth();
+  const { currentTheme } = useTheme();
+  const theme = currentTheme === 'light' ? lightTheme : darkTheme;
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
@@ -27,8 +33,8 @@ function App() {
                 <Route path='/' element={<MainPage />}>
                   <Route path='new-card' element={<NewCardPage />} />
                   <Route path='card/:id' element={<CardPage />} />
+                  <Route path='/exit' element={<ExitPage />} />
                 </Route>
-                <Route path='/exit' element={<ExitPage />} />
               </Route>
 
               <Route path='/login' element={<LoginPage />} />
@@ -38,8 +44,26 @@ function App() {
           </Wrapper>
         </TaskProvider>
       </ThemeProvider>
+      <ToastContainer
+        position='bottom-right'
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={currentTheme === 'dark' ? 'dark' : 'light'}
+      />
     </BrowserRouter>
   );
 }
 
-export default App;
+export default function Root() {
+  return (
+    <ThemeProviderComponent>
+      <App />
+    </ThemeProviderComponent>
+  );
+}

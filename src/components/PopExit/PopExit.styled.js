@@ -6,7 +6,7 @@ export const PopExitOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,7 +18,7 @@ export const PopExitBlock = styled.div`
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #D4DBE5;
+  border: 0.7px solid ${({ theme }) => theme.textGray};
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
   background: ${({ theme }) => theme.bgWhite};
   text-align: center;
@@ -47,7 +47,7 @@ export const PopExitFormGroup = styled.div`
 export const ExitYesButton = styled.button`
   width: 153px;
   height: 30px;
-  background-color: ${({ theme }) => theme.accent};
+  background-color: ${({ theme }) => theme.accentFill};
   border-radius: 4px;
   border: none;
   color: ${({ theme }) => theme.textWhite};
@@ -76,8 +76,9 @@ export const ExitNoButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   &:hover {
-    background-color: ${({ theme }) => theme.accentHover};
+    background-color: ${({ theme }) => theme.accentFill};
     color: ${({ theme }) => theme.textWhite};
+    border: 0.7px solid ${({ theme }) => theme.accentFill};
   }
   @media only screen and (max-width: 375px) {
     width: 100%;

@@ -16,12 +16,12 @@ export const PopBrowseOverlay = styled.div`
 export const PopBrowseBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #FFFFFF;
+  background-color: ${({ theme }) => theme.bgWhite};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 38px;
   border-radius: 10px;
-  border: 0.7px solid #D4DBE5;
+  border: 0.7px solid ${({ theme }) => theme.textGray};
   position: relative;
   @media (max-width: 660px) {
     border-radius: 0;
@@ -44,7 +44,7 @@ export const PopBrowseTopBlock = styled.div`
 `;
 
 export const PopBrowseTitle = styled.h3`
-  color: #000;
+  color: ${({ theme }) => theme.textDark};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -67,8 +67,6 @@ export const StatusThemes = styled.div`
 
 export const StatusTheme = styled.div`
   border-radius: 24px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
-  color: #94A6BE;
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;
@@ -78,9 +76,12 @@ export const StatusTheme = styled.div`
     letter-spacing: -0.14px;
   }
 
-  background-color: ${({ $active }) => ($active ? '#94A6BE' : 'transparent')};
-  color: ${({ $active }) => ($active ? '#FFFFFF' : '#94A6BE')};
-  border: ${({ $active }) => ($active ? 'none' : '0.7px solid rgba(148, 166, 190, 0.4)')};
+  background-color: ${({ $active, theme }) =>
+    $active ? theme.textGray : 'transparent'};
+  color: ${({ $active, theme }) =>
+    $active ? theme.textWhite : theme.textGray};
+  border: ${({ $active, theme }) =>
+    $active ? 'none' : `0.7px solid ${theme.textGray}`};
 `;
 
 export const PopBrowseWrap = styled.div`
@@ -103,7 +104,7 @@ export const FormBrowse = styled.form`
 `;
 
 export const Subttl = styled.label`
-  color: #000;
+  color: ${({ theme }) => theme.textDark};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -120,24 +121,42 @@ export const FormBrowseArea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #EAEEF6;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  background: ${({ theme }) => theme.bgMain};
+  border: 0.7px solid ${({ theme }) => theme.textGray};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
   margin-top: 14px;
   height: 200px;
+  color: ${({ theme }) => theme.textDark};
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
-    color: #94A6BE;
+    color: ${({ theme }) => theme.textGray};
     letter-spacing: -0.14px;
   }
   @media (max-width: 495px) {
     max-width: 100%;
     height: 37px;
+  }
+`;
+
+export const FormEditInput = styled.input`
+  width: 100%;
+  outline: none;
+  padding: 14px;
+  background: transparent;
+  border: 0.7px solid ${({ theme }) => theme.textGray};
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.14px;
+  margin-bottom: 14px;
+  color: ${({ theme }) => theme.textDark};
+  &::placeholder {
+    color: ${({ theme }) => theme.textGray};
   }
 `;
 
@@ -159,14 +178,15 @@ export const BtnGroup = styled.div`
 
 export const BtnBor = styled.button`
   border-radius: 4px;
-  border: 0.7px solid #565EEF;
+  border: 0.7px solid ${({ theme }) => theme.accent};
   outline: none;
   background: transparent;
-  color: #565EEF;
+  color: ${({ theme }) => theme.accent};
   cursor: pointer;
   &:hover {
-    background-color: #33399b;
-    color: #FFFFFF;
+    background-color: ${({ theme }) => theme.accentFill};
+    color: ${({ theme }) => theme.textWhite};
+    border: 0.7px solid ${({ theme }) => theme.accentFill};
   }
 `;
 
@@ -177,13 +197,16 @@ export const BtnBg = styled.button`
   font-weight: 500;
   line-height: 1;
   border-radius: 4px;
-  background: #565EEF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: ${({ theme }) => theme.accentFill};
   border: none;
   outline: none;
-  color: #FFFFFF;
+  color: ${({ theme }) => theme.textWhite};
   cursor: pointer;
   &:hover {
-    background-color: #33399b;
+    background-color: ${({ theme }) => theme.accentHover};
   }
   @media (max-width: 495px) {
     width: 100%;
