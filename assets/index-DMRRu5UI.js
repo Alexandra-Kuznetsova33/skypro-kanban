@@ -1201,9 +1201,6 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   justify-content: space-between;
   margin-top: 14px;
   padding: 0 7px;
-  @media (max-width: 660px) {
-    padding: 0;
-  }
 `,zb=H.div`
   color: ${({theme:e})=>e.textGray};
   font-size: 14px;
