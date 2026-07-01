@@ -165,14 +165,33 @@ export const BtnBrowse = styled.div`
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
+  @media (max-width: 495px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 export const BtnGroup = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+ @media (max-width: 495px) {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
   button {
     height: 30px;
     margin-bottom: 10px;
     padding: 0 14px;
     margin-right: 8px;
+    @media (max-width: 495px) {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 0;
+      padding: 0;
+    }
   }
 `;
 
@@ -187,6 +206,10 @@ export const BtnBor = styled.button`
     background-color: ${({ theme }) => theme.accentFill};
     color: ${({ theme }) => theme.textWhite};
     border: 0.7px solid ${({ theme }) => theme.accentFill};
+  }
+   @media (max-width: 495px) {
+    width: 100%;
+    height: 40px;
   }
 `;
 

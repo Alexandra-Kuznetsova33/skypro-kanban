@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 function Header() {
   const { currentTheme } = useTheme();
   const logoSrc =
-    currentTheme === 'dark' ? '/images/logo_dark.png' : '/images/logo.png';
+    currentTheme === 'dark' ? '/skypro-kanban/images/logo_dark.png' : '/skypro-kanban/images/logo.png';
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { user } = useAuth();
 

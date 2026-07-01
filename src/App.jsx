@@ -15,7 +15,7 @@ import CardPage from './pages/CardPage/CardPage';
 import ExitPage from './pages/ExitPage/ExitPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import Wrapper from './components/Shared/Wrapper.styled';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
   const { currentTheme } = useTheme();
   const theme = currentTheme === 'light' ? lightTheme : darkTheme;
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <TaskProvider key={user?.id ?? 'no-user'}>
@@ -56,7 +56,7 @@ function App() {
         pauseOnHover
         theme={currentTheme === 'dark' ? 'dark' : 'light'}
       />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

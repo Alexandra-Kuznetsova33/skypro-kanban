@@ -35,10 +35,13 @@ export const BtnMainNew = styled.button`
   color: ${({ theme }) => theme.textWhite};
   border: none;
   font-size: 14px;
-  line-height: 30px;
+  line-height: 1;
   text-align: center;
   font-weight: 500;
   margin-right: 20px;
+  display: inline-flex;          
+  align-items: center;           
+  justify-content: center;
   cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.accentHover};
