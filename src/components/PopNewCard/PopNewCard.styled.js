@@ -63,7 +63,9 @@ export const PopNewCardWrap = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   @media (max-width: 660px) {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 

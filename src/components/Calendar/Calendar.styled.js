@@ -41,6 +41,7 @@ export const NavActions = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 7px;
 `;
 
 export const NavAction = styled.div`
@@ -67,8 +68,8 @@ export const DaysNames = styled.div`
   margin: 7px 0;
   padding: 0;
   @media (max-width: 660px) {
-    justify-content: space-around;  
-    padding: 0;
+    justify-content: space-around;
+    width: 100%;  
   }
 `;
 
@@ -90,9 +91,9 @@ export const Cells = styled.div`
   display: flex;
   flex-wrap: wrap;
   @media (max-width: 660px) {
-    width: 344px;
     height: auto;
     justify-content: space-around;
+    width: 100%;
   }
 `;
 
@@ -137,7 +138,6 @@ export const CalendarPeriod = styled.div`
   padding: 0 7px;
   margin-top: 4px;
   @media (max-width: 660px) {
-    padding: 0;
     white-space: nowrap;          
   }
 `;
