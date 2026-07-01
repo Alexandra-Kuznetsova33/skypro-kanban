@@ -1182,6 +1182,9 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
 `,Ab=`https://wedev-api.sky.pro/api/user`;async function jb({login:e,password:t}){try{return(await P.post(`${Ab}/login`,{login:e,password:t},bi)).data.user}catch(e){throw Error(e.response?.data?.error||`Ошибка входа`,{cause:e})}}async function Mb({name:e,login:t,password:n}){try{return(await P.post(Ab,{name:e,login:t,password:n},bi)).data.user}catch(e){throw Error(e.response?.data?.error||`Ошибка регистрации`,{cause:e})}}var Nb=()=>{let[e,t]=(0,v.useState)(``),[n,r]=(0,v.useState)(``),[i,a]=(0,v.useState)({login:!1,password:!1}),{handleLogin:o}=(0,v.useContext)(Ze),s=mv(),c=(e,t,n)=>{n(t),t.trim()&&a(t=>({...t,[e]:!1}))},l=()=>{let t={login:!e.trim(),password:!n.trim()};return a(t),!t.login&&!t.password},u=async t=>{if(t.preventDefault(),l())try{o(await jb({login:e,password:n})),s(`/`)}catch(e){k.error(e.message)}},d=i.login||i.password;return(0,F.jsx)(xb,{children:(0,F.jsxs)(Sb,{onSubmit:u,children:[(0,F.jsx)(Cb,{children:`Вход`}),(0,F.jsx)(wb,{type:`text`,placeholder:`Email`,value:e,onChange:e=>c(`login`,e.target.value,t),$error:i.login,required:!0}),i.login&&(0,F.jsx)(Tb,{children:`Введите email`}),(0,F.jsx)(wb,{type:`password`,placeholder:`Пароль`,value:n,onChange:e=>c(`password`,e.target.value,r),$error:i.password,required:!0}),i.password&&(0,F.jsx)(Tb,{children:`Введите пароль`}),(0,F.jsx)(Eb,{type:`submit`,disabled:d,children:`Войти`}),(0,F.jsxs)(kb,{children:[(0,F.jsx)(Db,{children:`Нужно зарегистрироваться?`}),(0,F.jsx)(`br`,{}),(0,F.jsx)(Ob,{to:`/register`,children:`Регистрируйтесь здесь`})]})]})})},Pb=()=>{let[e,t]=(0,v.useState)(``),[n,r]=(0,v.useState)(``),[i,a]=(0,v.useState)(``),[o,s]=(0,v.useState)({name:!1,login:!1,password:!1}),{handleLogin:c}=(0,v.useContext)(Ze),l=mv(),u=(e,t,n)=>{n(t),t.trim()&&s(t=>({...t,[e]:!1}))},d=()=>{let t={name:!e.trim(),login:!n.trim(),password:!i.trim()};return s(t),!t.name&&!t.login&&!t.password},f=async t=>{if(t.preventDefault(),d())try{c(await Mb({name:e,login:n,password:i})),k.success(`Регистрация прошла успешно`),l(`/`)}catch(e){k.error(e.message)}},p=o.name||o.login||o.password;return(0,F.jsx)(xb,{children:(0,F.jsxs)(Sb,{onSubmit:f,children:[(0,F.jsx)(Cb,{children:`Регистрация`}),(0,F.jsx)(wb,{type:`text`,placeholder:`Имя`,value:e,onChange:e=>u(`name`,e.target.value,t),$error:o.name,required:!0}),o.name&&(0,F.jsx)(Tb,{children:`Введите имя`}),(0,F.jsx)(wb,{type:`text`,placeholder:`Email`,value:n,onChange:e=>u(`login`,e.target.value,r),$error:o.login,required:!0}),o.login&&(0,F.jsx)(Tb,{children:`Введите email`}),(0,F.jsx)(wb,{type:`password`,placeholder:`Пароль`,value:i,onChange:e=>u(`password`,e.target.value,a),$error:o.password,required:!0}),o.password&&(0,F.jsx)(Tb,{children:`Введите пароль`}),(0,F.jsx)(Eb,{type:`submit`,disabled:p,children:`Зарегистрироваться`}),(0,F.jsxs)(kb,{children:[(0,F.jsx)(Db,{children:`Уже есть аккаунт? `}),(0,F.jsx)(Ob,{to:`/login`,children:`Войдите здесь`})]})]})})},Fb=H.div`
   width: 182px;
   margin-bottom: 20px;
+  @media (max-width: 660px) {
+    width: 344px;
+  }
 `,Ib=H.p`
   margin-bottom: 14px;
   padding: 0 7px;
@@ -1198,6 +1201,9 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   justify-content: space-between;
   margin-top: 14px;
   padding: 0 7px;
+  @media (max-width: 660px) {
+    padding: 0;
+  }
 `,zb=H.div`
   color: ${({theme:e})=>e.textGray};
   font-size: 14px;
@@ -1225,7 +1231,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   align-items: center;
   justify-content: space-between;
   margin: 7px 0;
-  padding: 0 7px;
+  padding: 0;
   @media (max-width: 660px) {
     justify-content: space-around;  
     padding: 0;
@@ -1416,7 +1422,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   }
   @media (max-width: 495px) {
     max-width: 100%;
-    height: 34px;
+    height: 36px;
   }
 `,sx=H.p`
   color: red;
