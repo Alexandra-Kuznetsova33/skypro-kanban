@@ -1210,6 +1210,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 7px;
 `,Vb=H.div`
   width: 18px;
   height: 25px;
@@ -1228,9 +1229,10 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   align-items: center;
   justify-content: space-between;
   margin: 7px 0;
-  padding: 0 7px;
+  padding: 0;
   @media (max-width: 660px) {
-    justify-content: space-around;  
+    justify-content: space-around;
+    width: 100%;  
   }
 `,Wb=H.div`
   color: ${({theme:e})=>e.textGray};
@@ -1248,9 +1250,9 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   display: flex;
   flex-wrap: wrap;
   @media (max-width: 660px) {
-    width: 344px;
     height: auto;
     justify-content: space-around;
+    width: 100%;
   }
 `,Kb=H.div`
   width: 22px;
@@ -1354,7 +1356,9 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   align-items: flex-start;
   justify-content: space-between;
   @media (max-width: 660px) {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `,nx=H.form`
   max-width: 370px;
@@ -1589,7 +1593,9 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   align-items: flex-start;
   justify-content: space-between;
   @media (max-width: 660px) {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
   }
 `,Mx=H.form`
   max-width: 370px;
@@ -1656,6 +1662,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   @media (max-width: 495px) {
     flex-direction: column;
     gap: 10px;
+    width: 100%;
   }
 `,Rx=H.div`
   display: flex;
@@ -1671,9 +1678,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
     height: 30px;
     margin-bottom: 10px;
     padding: 0 14px;
-    margin-right: 8px;
     @media (max-width: 495px) {
-      width: 100%;
       height: 40px;
       margin-bottom: 0;
       padding: 0;
@@ -1728,7 +1733,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   @media (max-width: 495px) {
     display: block;
   }
-`;function Ux({card:e,onClose:t}){let n=mv(),{editTask:r,removeTask:i}=fb(),[a,o]=(0,v.useState)(!1),[s,c]=(0,v.useState)(e?.title||``),[l,u]=(0,v.useState)(e?.description||``),[d,f]=(0,v.useState)(e?.status||`Без статуса`),[p,m]=(0,v.useState)(e?.topic||`Web Design`),[h,g]=(0,v.useState)(()=>nb(e?.date)),[_,y]=(0,v.useState)(!1),[b,x]=(0,v.useState)(!1);if(!e)return(0,F.jsx)(`div`,{children:`Задача не найдена`});let S=ob[ab[e.topic]||`_gray`]||`gray`,C=e.date?$y(e.date):``,w=a?tb(h):C,ee=()=>{t?t():n(`/`)},te=()=>{c(e.title),u(e.description||``),f(e.status),m(e.topic),g(nb(e.date)),o(!0)},ne=()=>{c(e.title),u(e.description||``),f(e.status),m(e.topic),g(nb(e.date)),o(!1)},re=async()=>{y(!0);let n=h?eb(h):new Date().toISOString(),i=await r(e._id,{title:s.trim()||`Новая задача`,topic:p,status:d,description:l,date:n});y(!1),i.success?(k.success(`Изменения сохранены`),o(!1),t?.()):k.error(i.error||`Не удалось сохранить изменения`)},ie=async()=>{x(!0)};return(0,F.jsx)(Sx,{children:(0,F.jsxs)(Cx,{children:[(0,F.jsxs)(wx,{children:[(0,F.jsxs)(Tx,{children:[a?(0,F.jsxs)(Px,{children:[(0,F.jsx)(Nx,{htmlFor:`editTitle`,children:`Название задачи`}),(0,F.jsx)(Ix,{type:`text`,id:`editTitle`,value:s,onChange:e=>c(e.target.value),placeholder:`Название задачи`})]}):(0,F.jsx)(Ex,{children:e.title}),(0,F.jsx)(Vx,{children:(0,F.jsx)(fx,{$colorKey:S,$active:!0,children:(0,F.jsx)(`p`,{children:e.topic})})})]}),(0,F.jsxs)(Dx,{children:[(0,F.jsx)(Ox,{children:`Статус`}),(0,F.jsx)(kx,{children:[`Без статуса`,`Нужно сделать`,`В работе`,`Тестирование`,`Готово`].map(t=>(0,F.jsx)(Ax,{$active:a?d===t:e.status===t,onClick:a?()=>f(t):void 0,style:a?{cursor:`pointer`}:{},children:(0,F.jsx)(`p`,{children:t})},t))})]}),(0,F.jsxs)(jx,{children:[(0,F.jsx)(Mx,{id:`formBrowseCard`,action:`#`,children:(0,F.jsxs)(Px,{children:[(0,F.jsx)(Nx,{htmlFor:`textArea01`,children:`Описание задачи`}),(0,F.jsx)(Fx,{name:`text`,id:`textArea01`,value:a?l:e.description||``,readOnly:!a,placeholder:`Введите описание задачи...`,onChange:a?e=>u(e.target.value):void 0})]})}),(0,F.jsx)(Yb,{highlightedDate:w,deadlineDate:w,onDateChange:e=>{g(e)}})]}),a&&(0,F.jsxs)(lx,{children:[(0,F.jsx)(ux,{children:`Категория`}),(0,F.jsx)(dx,{children:[`Web Design`,`Research`,`Copywriting`].map(e=>(0,F.jsx)(fx,{$colorKey:ob[ab[e]||`_gray`]||`gray`,$active:p===e,onClick:()=>m(e),children:(0,F.jsx)(`p`,{children:e})},e))})]}),(0,F.jsxs)(Hx,{children:[(0,F.jsx)(Ox,{children:`Категория`}),(0,F.jsx)(fx,{$colorKey:S,$active:!0,children:(0,F.jsx)(`p`,{children:e.topic})})]}),(0,F.jsx)(Lx,{children:a?(0,F.jsxs)(F.Fragment,{children:[(0,F.jsxs)(Rx,{children:[(0,F.jsx)(Bx,{type:`button`,onClick:re,disabled:_,children:_?`Сохранение...`:`Сохранить`}),(0,F.jsx)(zx,{type:`button`,onClick:ne,disabled:_,children:`Отменить`}),(0,F.jsx)(zx,{type:`button`,onClick:ie,disabled:_,children:`Удалить задачу`})]}),(0,F.jsx)(Bx,{type:`button`,onClick:ee,children:`Закрыть`})]}):(0,F.jsxs)(F.Fragment,{children:[(0,F.jsxs)(Rx,{children:[(0,F.jsx)(zx,{type:`button`,onClick:te,children:`Редактировать задачу`}),(0,F.jsx)(zx,{type:`button`,onClick:ie,children:`Удалить задачу`})]}),(0,F.jsx)(Bx,{type:`button`,onClick:ee,children:`Закрыть`})]})})]}),b&&(0,F.jsx)(xx,{message:`Вы уверены, что хотите удалить эту задачу?`,onConfirm:async()=>{x(!1),y(!0);let n=await i(e._id);y(!1),n.success?(k.success(`Задача удалена`),t?.()):k.error(n.error||`Не удалось удалить задачу`)},onCancel:()=>{x(!1)}})]})})}var Wx=()=>{let{id:e}=vv(),{user:t}=(0,v.useContext)(Ze),n=mv(),[r,i]=(0,v.useState)(null),[a,o]=(0,v.useState)(!1),[s,c]=(0,v.useState)(``);return(0,v.useEffect)(()=>{t&&(async()=>{try{o(!0),c(``),i(await wi({token:t.token,id:e}))}catch(e){c(e.message)}finally{o(!1)}})()},[e,t]),t?a?(0,F.jsx)(`div`,{children:`Загрузка...`}):s?(0,F.jsx)(`div`,{children:s}):r?(0,F.jsx)(Ux,{card:r,onClose:()=>n(`/`)}):(0,F.jsx)(`div`,{children:`Задача не найдена`}):(0,F.jsx)(`div`,{children:`Необходима авторизация`})},Gx=H.div`
+`;function Ux({card:e,onClose:t}){let n=mv(),{editTask:r,removeTask:i}=fb(),[a,o]=(0,v.useState)(!1),[s,c]=(0,v.useState)(e?.title||``),[l,u]=(0,v.useState)(e?.description||``),[d,f]=(0,v.useState)(e?.status||`Без статуса`),[p,m]=(0,v.useState)(e?.topic||`Web Design`),[h,g]=(0,v.useState)(()=>nb(e?.date)),[_,y]=(0,v.useState)(!1),[b,x]=(0,v.useState)(!1);if(!e)return(0,F.jsx)(`div`,{children:`Задача не найдена`});let S=ob[ab[e.topic]||`_gray`]||`gray`,C=e.date?$y(e.date):``,w=a?tb(h):C,ee=()=>{t?t():n(`/`)},te=()=>{c(e.title),u(e.description||``),f(e.status),m(e.topic),g(nb(e.date)),o(!0)},ne=()=>{c(e.title),u(e.description||``),f(e.status),m(e.topic),g(nb(e.date)),o(!1)},re=async()=>{y(!0);let n=h?eb(h):new Date().toISOString(),i=await r(e._id,{title:s.trim()||`Новая задача`,topic:p,status:d,description:l,date:n});y(!1),i.success?(k.success(`Изменения сохранены`),o(!1),t?.()):k.error(i.error||`Не удалось сохранить изменения`)},ie=async()=>{x(!0)};return(0,F.jsx)(Sx,{children:(0,F.jsxs)(Cx,{children:[(0,F.jsxs)(wx,{children:[(0,F.jsxs)(Tx,{children:[a?(0,F.jsxs)(Px,{children:[(0,F.jsx)(Nx,{htmlFor:`editTitle`,children:`Название задачи`}),(0,F.jsx)(Ix,{type:`text`,id:`editTitle`,value:s,onChange:e=>c(e.target.value),placeholder:`Название задачи`})]}):(0,F.jsx)(Ex,{children:e.title}),(0,F.jsx)(Vx,{children:(0,F.jsx)(fx,{$colorKey:S,$active:!0,children:(0,F.jsx)(`p`,{children:e.topic})})})]}),(0,F.jsxs)(Dx,{children:[(0,F.jsx)(Ox,{children:`Статус`}),(0,F.jsx)(kx,{children:[`Без статуса`,`Нужно сделать`,`В работе`,`Тестирование`,`Готово`].map(t=>(0,F.jsx)(Ax,{$active:a?d===t:e.status===t,onClick:a?()=>f(t):void 0,style:a?{cursor:`pointer`}:{},children:(0,F.jsx)(`p`,{children:t})},t))})]}),(0,F.jsxs)(jx,{children:[(0,F.jsx)(Mx,{id:`formBrowseCard`,action:`#`,children:(0,F.jsxs)(Px,{children:[(0,F.jsx)(Nx,{htmlFor:`textArea01`,children:`Описание задачи`}),(0,F.jsx)(Fx,{name:`text`,id:`textArea01`,value:a?l:e.description||``,readOnly:!a,placeholder:`Введите описание задачи...`,onChange:a?e=>u(e.target.value):void 0})]})}),(0,F.jsx)(Yb,{highlightedDate:w,deadlineDate:w,onDateChange:e=>{g(e)}})]}),a&&(0,F.jsxs)(lx,{children:[(0,F.jsx)(ux,{children:`Категория`}),(0,F.jsx)(dx,{children:[`Web Design`,`Research`,`Copywriting`].map(e=>(0,F.jsx)(fx,{$colorKey:ob[ab[e]||`_gray`]||`gray`,$active:p===e,onClick:()=>m(e),children:(0,F.jsx)(`p`,{children:e})},e))})]}),!a&&(0,F.jsxs)(Hx,{children:[(0,F.jsx)(Ox,{children:`Категория`}),(0,F.jsx)(fx,{$colorKey:S,$active:!0,children:(0,F.jsx)(`p`,{children:e.topic})})]}),(0,F.jsx)(Lx,{children:a?(0,F.jsxs)(F.Fragment,{children:[(0,F.jsxs)(Rx,{children:[(0,F.jsx)(Bx,{type:`button`,onClick:re,disabled:_,children:_?`Сохранение...`:`Сохранить`}),(0,F.jsx)(zx,{type:`button`,onClick:ne,disabled:_,children:`Отменить`}),(0,F.jsx)(zx,{type:`button`,onClick:ie,disabled:_,children:`Удалить задачу`})]}),(0,F.jsx)(Bx,{type:`button`,onClick:ee,children:`Закрыть`})]}):(0,F.jsxs)(F.Fragment,{children:[(0,F.jsxs)(Rx,{children:[(0,F.jsx)(zx,{type:`button`,onClick:te,children:`Редактировать задачу`}),(0,F.jsx)(zx,{type:`button`,onClick:ie,children:`Удалить задачу`})]}),(0,F.jsx)(Bx,{type:`button`,onClick:ee,children:`Закрыть`})]})})]}),b&&(0,F.jsx)(xx,{message:`Вы уверены, что хотите удалить эту задачу?`,onConfirm:async()=>{x(!1),y(!0);let n=await i(e._id);y(!1),n.success?(k.success(`Задача удалена`),t?.()):k.error(n.error||`Не удалось удалить задачу`)},onCancel:()=>{x(!1)}})]})})}var Wx=()=>{let{id:e}=vv(),{user:t}=(0,v.useContext)(Ze),n=mv(),[r,i]=(0,v.useState)(null),[a,o]=(0,v.useState)(!1),[s,c]=(0,v.useState)(``);return(0,v.useEffect)(()=>{t&&(async()=>{try{o(!0),c(``),i(await wi({token:t.token,id:e}))}catch(e){c(e.message)}finally{o(!1)}})()},[e,t]),t?a?(0,F.jsx)(`div`,{children:`Загрузка...`}):s?(0,F.jsx)(`div`,{children:s}):r?(0,F.jsx)(Ux,{card:r,onClose:()=>n(`/`)}):(0,F.jsx)(`div`,{children:`Задача не найдена`}):(0,F.jsx)(`div`,{children:`Необходима авторизация`})},Gx=H.div`
   width: 100%;
   height: 100%;
   position: fixed;
