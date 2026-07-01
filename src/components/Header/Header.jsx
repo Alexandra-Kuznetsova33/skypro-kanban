@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import PopUser from '../PopUser/PopUser';
+import { useAuth } from '../../context/useAuth';
+import { useTheme } from '../../context/useTheme';
 import {
   StyledHeader,
   HeaderBlock,
@@ -11,23 +13,27 @@ import {
 import { Link } from 'react-router-dom';
 
 function Header() {
+  const { currentTheme } = useTheme();
+  const logoSrc =
+    currentTheme === 'dark' ? '/images/logo_dark.png' : '/images/logo.png';
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <StyledHeader>
       <div className='container'>
         <HeaderBlock>
           <Logo>
-            <a href='' target='_self'>
-              <img src='images/logo.png' alt='logo' />
-            </a>
+            <Link to='/'>
+              <img src={logoSrc} alt='logo' />
+            </Link>
           </Logo>
           <Nav>
             <BtnMainNew as={Link} to='/new-card'>
               Создать новую задачу
             </BtnMainNew>
             <UserLink onClick={() => setIsUserMenuOpen((prev) => !prev)}>
-              Ivan Ivanov
+              {user?.name || 'Пользователь'}
             </UserLink>
             <PopUser isOpen={isUserMenuOpen} />
           </Nav>

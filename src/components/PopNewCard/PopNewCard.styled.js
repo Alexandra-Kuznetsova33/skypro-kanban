@@ -16,12 +16,12 @@ export const PopNewCardOverlay = styled.div`
 export const PopNewCardBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #FFFFFF;
+  background-color: ${({ theme }) => theme.bgWhite};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 48px;
   border-radius: 10px;
-  border: 0.7px solid #D4DBE5;
+  border: 0.7px solid ${({ theme }) => theme.textGray};
   position: relative;
   @media (max-width: 660px) {
     border-radius: 0;
@@ -37,7 +37,7 @@ export const PopNewCardContent = styled.div`
 `;
 
 export const PopNewCardTitle = styled.h3`
-  color: #000;
+  color: ${({ theme }) => theme.textDark};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -48,13 +48,13 @@ export const PopNewCardClose = styled.button`
   position: absolute;
   top: 20px;
   right: 30px;
-  color: #94A6BE;
+  color: ${({ theme }) => theme.textGray};
   cursor: pointer;
   background: none;
   border: none;
   font-size: 18px;
   &:hover {
-    color: #000000;
+    color: ${({ theme }) => theme.textDark};
   }
 `;
 
@@ -83,7 +83,7 @@ export const FormNewBlock = styled.div`
 `;
 
 export const Subttl = styled.label`
-  color: #000;
+  color: ${({ theme }) => theme.textDark};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -95,17 +95,19 @@ export const FormNewInput = styled.input`
   outline: none;
   padding: 14px;
   background: transparent;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: 0.7px solid
+    ${({ $error }) => ($error ? 'red' : 'rgba(148, 166, 190, 0.4)')};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
   margin: 20px 0;
+  color: ${({ theme }) => theme.textDark};
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
-    color: #94A6BE;
+    color: ${({ theme }) => theme.textGray};
     letter-spacing: -0.14px;
   }
 `;
@@ -118,16 +120,18 @@ export const FormNewArea = styled.textarea`
   outline: none;
   padding: 14px;
   background: transparent;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: 0.7px solid
+    ${({ $error }) => ($error ? 'red' : 'rgba(148, 166, 190, 0.4)')};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  color: ${({ theme }) => theme.textDark};
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
-    color: #94A6BE;
+    color: ${({ theme }) => theme.textGray};
     letter-spacing: -0.14px;
   }
   @media (max-width: 495px) {
@@ -136,21 +140,28 @@ export const FormNewArea = styled.textarea`
   }
 `;
 
+export const ErrorText = styled.p`
+  color: red;
+  font-size: 12px;
+  margin-bottom: 10px;
+`;
+
 export const FormNewCreate = styled.button`
   width: 132px;
   height: 30px;
-  background-color: #565EEF;
+  background-color: ${({ disabled, theme }) =>
+    disabled ? '#ccc' : theme.accentFill};
   border-radius: 4px;
   border: 0;
   outline: none;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
-  color: #FFFFFF;
+  color: ${({ theme }) => theme.textWhite};
   float: right;
   cursor: pointer;
   &:hover {
-    background-color: #33399b;
+    background-color: ${({ theme }) => theme.accentHover};
   }
   @media (max-width: 495px) {
     width: 100%;
@@ -171,23 +182,4 @@ export const CategoriesThemes = styled.div`
   flex-wrap: nowrap;
   align-items: flex-start;
   justify-content: flex-start;
-`;
-
-export const CategoriesTheme = styled.div`
-  display: inline-block;
-  width: auto;
-  height: 30px;
-  padding: 8px 20px;
-  border-radius: 24px;
-  margin-right: 7px;
-  opacity: ${({ $active }) => $active ? 1 : 0.4};
-  background-color: ${({ $bg }) => $bg};
-  color: ${({ $text }) => $text};
-  p {
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 14px;
-    white-space: nowrap;
-    color: inherit;
-  }
 `;

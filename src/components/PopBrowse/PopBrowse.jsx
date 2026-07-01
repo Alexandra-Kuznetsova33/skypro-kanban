@@ -1,6 +1,14 @@
+import ConfirmModal from '../Shared/ConfirmModal/ConfirmModal';
+import { toast } from 'react-toastify';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Calendar from '../Calendar/Calendar';
-import { topicClassMap } from '../../constants';
+import {
+  topicClassMap,
+  DEFAULT_TOPIC_CLASS,
+  topicColorKeys,
+} from '../../constants';
+import { useTasks } from '../../context/useTasks';
 import {
   PopBrowseOverlay,
   PopBrowseBlock,
@@ -22,52 +30,142 @@ import {
   BtnBg,
   ThemeTop,
   ThemeDown,
+  FormEditInput,
 } from './PopBrowse.styled';
 import { CategoriesTheme } from '../Shared/CategoriesTheme.styled';
-import { formatDate } from '../../utils/formatDate';
+import {
+  Categories,
+  CategoriesP,
+  CategoriesThemes,
+} from '../PopNewCard/PopNewCard.styled';
+import {
+  formatDate,
+  formatLocalDate,
+  toISOString,
+  toLocalDateString,
+} from '../../utils/formatDate';
 
 function PopBrowse({ card, onClose }) {
   const navigate = useNavigate();
+  const { editTask, removeTask } = useTasks();
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState(card?.title || '');
+  const [editDescription, setEditDescription] = useState(
+    card?.description || '',
+  );
+  const [editStatus, setEditStatus] = useState(card?.status || 'Без статуса');
+  const [editTopic, setEditTopic] = useState(card?.topic || 'Web Design');
+  const [editDate, setEditDate] = useState(() => toLocalDateString(card?.date));
+  const [loading, setLoading] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   if (!card) return <div>Задача не найдена</div>;
 
-  const themeClass = topicClassMap[card.topic] || '_gray';
-  const bgColor =
-    themeClass === '_orange'
-      ? '#FFE4C2'
-      : themeClass === '_green'
-        ? '#B4FDD1'
-        : themeClass === '_purple'
-          ? '#E9D4FF'
-          : '#94A6BE';
-  const textColor =
-    themeClass === '_orange'
-      ? '#FF6D00'
-      : themeClass === '_green'
-        ? '#06B16E'
-        : themeClass === '_purple'
-          ? '#9A48F1'
-          : '#FFFFFF';
+  const themeKey = topicClassMap[card.topic] || DEFAULT_TOPIC_CLASS;
+  const colorKey = topicColorKeys[themeKey] || 'gray';
+
+  const cardFormattedDate = card.date ? formatDate(card.date) : '';
+  const displayHighlighted = isEditing
+    ? formatLocalDate(editDate)
+    : cardFormattedDate;
 
   const handleClose = () => {
     if (onClose) onClose();
     else navigate('/');
   };
 
-  const formattedDate = card.date ? formatDate(card.date) : '';
+  const handleEditClick = () => {
+    setEditTitle(card.title);
+    setEditDescription(card.description || '');
+    setEditStatus(card.status);
+    setEditTopic(card.topic);
+    setEditDate(toLocalDateString(card.date));
+    setIsEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setEditTitle(card.title);
+    setEditDescription(card.description || '');
+    setEditStatus(card.status);
+    setEditTopic(card.topic);
+    setEditDate(toLocalDateString(card.date));
+    setIsEditing(false);
+  };
+
+  const handleSave = async () => {
+    setLoading(true);
+    const dateToSend = editDate
+      ? toISOString(editDate)
+      : new Date().toISOString();
+    const result = await editTask(card._id, {
+      title: editTitle.trim() || 'Новая задача',
+      topic: editTopic,
+      status: editStatus,
+      description: editDescription,
+      date: dateToSend,
+    });
+    setLoading(false);
+    if (result.success) {
+      toast.success('Изменения сохранены');
+      setIsEditing(false);
+      onClose?.();
+    } else {
+      toast.error(result.error || 'Не удалось сохранить изменения');
+    }
+  };
+
+  const handleDelete = async () => {
+    setShowConfirm(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    setShowConfirm(false);
+    setLoading(true);
+    const result = await removeTask(card._id);
+    setLoading(false);
+    if (result.success) {
+      toast.success('Задача удалена');
+      onClose?.();
+    } else {
+      toast.error(result.error || 'Не удалось удалить задачу');
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirm(false);
+  };
+
+  const handleDateChange = (newDate) => {
+    setEditDate(newDate);
+  };
 
   return (
     <PopBrowseOverlay>
       <PopBrowseBlock>
         <PopBrowseContent>
           <PopBrowseTopBlock>
-            <PopBrowseTitle>{card.title}</PopBrowseTitle>
+            {isEditing ? (
+              <FormBrowseBlock>
+                <Subttl htmlFor='editTitle'>Название задачи</Subttl>
+                <FormEditInput
+                  type='text'
+                  id='editTitle'
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  placeholder='Название задачи'
+                />
+              </FormBrowseBlock>
+            ) : (
+              <PopBrowseTitle>{card.title}</PopBrowseTitle>
+            )}
             <ThemeTop>
-              <CategoriesTheme $bg={bgColor} $text={textColor} $active={true}>
+              <CategoriesTheme $colorKey={colorKey} $active={true}>
                 <p>{card.topic}</p>
               </CategoriesTheme>
             </ThemeTop>
           </PopBrowseTopBlock>
+
           <Status>
             <StatusP>Статус</StatusP>
             <StatusThemes>
@@ -78,12 +176,20 @@ function PopBrowse({ card, onClose }) {
                 'Тестирование',
                 'Готово',
               ].map((status) => (
-                <StatusTheme key={status} $active={card.status === status}>
+                <StatusTheme
+                  key={status}
+                  $active={
+                    isEditing ? editStatus === status : card.status === status
+                  }
+                  onClick={isEditing ? () => setEditStatus(status) : undefined}
+                  style={isEditing ? { cursor: 'pointer' } : {}}
+                >
                   <p>{status}</p>
                 </StatusTheme>
               ))}
             </StatusThemes>
           </Status>
+
           <PopBrowseWrap>
             <FormBrowse id='formBrowseCard' action='#'>
               <FormBrowseBlock>
@@ -91,30 +197,103 @@ function PopBrowse({ card, onClose }) {
                 <FormBrowseArea
                   name='text'
                   id='textArea01'
-                  readOnly
+                  value={isEditing ? editDescription : card.description || ''}
+                  readOnly={!isEditing}
                   placeholder='Введите описание задачи...'
-                  value={card.description || ''}
+                  onChange={
+                    isEditing
+                      ? (e) => setEditDescription(e.target.value)
+                      : undefined
+                  }
                 />
               </FormBrowseBlock>
             </FormBrowse>
-            <Calendar highlightedDate='09.09.23' deadlineDate={formattedDate} />
+            <Calendar
+              highlightedDate={displayHighlighted}
+              deadlineDate={displayHighlighted}
+              onDateChange={handleDateChange}
+            />
           </PopBrowseWrap>
+
+          {isEditing && (
+            <Categories>
+              <CategoriesP>Категория</CategoriesP>
+              <CategoriesThemes>
+                {['Web Design', 'Research', 'Copywriting'].map((topic) => {
+                  const key = topicClassMap[topic] || '_gray';
+                  const cKey = topicColorKeys[key] || 'gray';
+                  return (
+                    <CategoriesTheme
+                      key={topic}
+                      $colorKey={cKey}
+                      $active={editTopic === topic}
+                      onClick={() => setEditTopic(topic)}
+                    >
+                      <p>{topic}</p>
+                    </CategoriesTheme>
+                  );
+                })}
+              </CategoriesThemes>
+            </Categories>
+          )}
+
           <ThemeDown>
             <StatusP>Категория</StatusP>
-            <CategoriesTheme $bg={bgColor} $text={textColor} $active={true}>
+            <CategoriesTheme $colorKey={colorKey} $active={true}>
               <p>{card.topic}</p>
             </CategoriesTheme>
           </ThemeDown>
+
           <BtnBrowse>
-            <BtnGroup>
-              <BtnBor type='button'>Редактировать задачу</BtnBor>
-              <BtnBor type='button'>Удалить задачу</BtnBor>
-            </BtnGroup>
-            <BtnBg type='button' onClick={handleClose}>
-              Закрыть
-            </BtnBg>
+            {isEditing ? (
+              <>
+                <BtnGroup>
+                  <BtnBg type='button' onClick={handleSave} disabled={loading}>
+                    {loading ? 'Сохранение...' : 'Сохранить'}
+                  </BtnBg>
+                  <BtnBor
+                    type='button'
+                    onClick={handleCancelEdit}
+                    disabled={loading}
+                  >
+                    Отменить
+                  </BtnBor>
+                  <BtnBor
+                    type='button'
+                    onClick={handleDelete}
+                    disabled={loading}
+                  >
+                    Удалить задачу
+                  </BtnBor>
+                </BtnGroup>
+                <BtnBg type='button' onClick={handleClose}>
+                  Закрыть
+                </BtnBg>
+              </>
+            ) : (
+              <>
+                <BtnGroup>
+                  <BtnBor type='button' onClick={handleEditClick}>
+                    Редактировать задачу
+                  </BtnBor>
+                  <BtnBor type='button' onClick={handleDelete}>
+                    Удалить задачу
+                  </BtnBor>
+                </BtnGroup>
+                <BtnBg type='button' onClick={handleClose}>
+                  Закрыть
+                </BtnBg>
+              </>
+            )}
           </BtnBrowse>
         </PopBrowseContent>
+        {showConfirm && (
+          <ConfirmModal
+            message='Вы уверены, что хотите удалить эту задачу?'
+            onConfirm={handleConfirmDelete}
+            onCancel={handleCancelDelete}
+          />
+        )}
       </PopBrowseBlock>
     </PopBrowseOverlay>
   );

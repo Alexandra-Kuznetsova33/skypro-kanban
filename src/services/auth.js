@@ -5,7 +5,9 @@ const AUTH_URL = 'https://wedev-api.sky.pro/api/user';
 
 export async function signIn({ login, password }) {
   try {
-    const response = await axios.post(`${AUTH_URL}/login`, { login, password }, 
+    const response = await axios.post(
+      `${AUTH_URL}/login`,
+      { login, password },
       axiosConfig,
     );
     return response.data.user;
@@ -18,7 +20,9 @@ export async function signIn({ login, password }) {
 
 export async function signUp({ name, login, password }) {
   try {
-    const response = await axios.post(AUTH_URL, { name, login, password }, 
+    const response = await axios.post(
+      AUTH_URL,
+      { name, login, password },
       axiosConfig,
     );
     return response.data.user;

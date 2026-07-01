@@ -5,11 +5,12 @@ export const CategoriesTheme = styled.div`
   width: auto;
   height: 30px;
   padding: 8px 20px;
+  cursor: pointer;
   border-radius: 24px;
   margin-right: 7px;
   opacity: ${({ $active }) => $active ? 1 : 0.4};
-  background-color: ${({ $bg }) => $bg};
-  color: ${({ $text }) => $text};
+  background-color: ${({ $colorKey, theme }) => theme[`${$colorKey}Bg`] || theme.grayBg};
+  color: ${({ $colorKey, theme }) => theme[`${$colorKey}Text`] || theme.grayText};
   p {
     font-size: 14px;
     font-weight: 600;

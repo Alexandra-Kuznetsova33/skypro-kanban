@@ -42,12 +42,15 @@ export const CardTheme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
-  background-color: ${({ $bgColor }) => $bgColor};
-  color: ${({ $textColor }) => $textColor};
+  background-color: ${({ $colorKey, theme }) =>
+    theme[`${$colorKey}Bg`] || theme.grayBg};
+  color: ${({ $colorKey, theme }) =>
+    theme[`${$colorKey}Text`] || theme.grayText};
   p {
     font-size: 10px;
     font-weight: 600;
     line-height: 10px;
+    color: inherit;
   }
 `;
 

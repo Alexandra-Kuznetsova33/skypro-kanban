@@ -23,6 +23,7 @@ export const ColumnTitle = styled.div`
 
 export const CardsContainer = styled.div`
   width: 100%;
+  min-height: 60px;
   position: relative;
   @media (max-width: 1200px) {
     display: flex;
