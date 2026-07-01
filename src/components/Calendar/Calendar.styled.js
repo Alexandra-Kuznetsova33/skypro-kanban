@@ -65,10 +65,9 @@ export const DaysNames = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 7px 0;
-  padding: 0;
+  padding: 0 7px;
   @media (max-width: 660px) {
     justify-content: space-around;  
-    padding: 0;
   }
 `;
 
@@ -137,7 +136,6 @@ export const CalendarPeriod = styled.div`
   padding: 0 7px;
   margin-top: 4px;
   @media (max-width: 660px) {
-    padding: 0;
     white-space: nowrap;          
   }
 `;
