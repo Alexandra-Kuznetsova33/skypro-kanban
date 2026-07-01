@@ -1,3 +1,4 @@
+import ConfirmModal from '../Shared/ConfirmModal/ConfirmModal';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -48,7 +49,6 @@ function PopBrowse({ card, onClose }) {
   const navigate = useNavigate();
   const { editTask, removeTask } = useTasks();
 
-  // Состояния
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(card?.title || '');
   const [editDescription, setEditDescription] = useState(
@@ -58,28 +58,23 @@ function PopBrowse({ card, onClose }) {
   const [editTopic, setEditTopic] = useState(card?.topic || 'Web Design');
   const [editDate, setEditDate] = useState(() => toLocalDateString(card?.date));
   const [loading, setLoading] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
-  // Ранний возврат, если карточка не передана
   if (!card) return <div>Задача не найдена</div>;
 
-  // Определяем ключ цвета для темы
   const themeKey = topicClassMap[card.topic] || DEFAULT_TOPIC_CLASS;
   const colorKey = topicColorKeys[themeKey] || 'gray';
 
-  // Отформатированная дата для отображения в режиме просмотра
   const cardFormattedDate = card.date ? formatDate(card.date) : '';
-  // Дата для подсветки в календаре
   const displayHighlighted = isEditing
     ? formatLocalDate(editDate)
     : cardFormattedDate;
 
-  // Закрытие модалки
   const handleClose = () => {
     if (onClose) onClose();
     else navigate('/');
   };
 
-  // Вход в режим редактирования
   const handleEditClick = () => {
     setEditTitle(card.title);
     setEditDescription(card.description || '');
@@ -89,7 +84,6 @@ function PopBrowse({ card, onClose }) {
     setIsEditing(true);
   };
 
-  // Отмена редактирования
   const handleCancelEdit = () => {
     setEditTitle(card.title);
     setEditDescription(card.description || '');
@@ -99,7 +93,6 @@ function PopBrowse({ card, onClose }) {
     setIsEditing(false);
   };
 
-  // Сохранение изменений
   const handleSave = async () => {
     setLoading(true);
     const dateToSend = editDate
@@ -122,9 +115,12 @@ function PopBrowse({ card, onClose }) {
     }
   };
 
-  // Удаление задачи
   const handleDelete = async () => {
-    if (!window.confirm('Вы уверены, что хотите удалить эту задачу?')) return;
+    setShowConfirm(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    setShowConfirm(false);
     setLoading(true);
     const result = await removeTask(card._id);
     setLoading(false);
@@ -136,9 +132,11 @@ function PopBrowse({ card, onClose }) {
     }
   };
 
-  // Обработчик выбора даты в календаре
+  const handleCancelDelete = () => {
+    setShowConfirm(false);
+  };
+
   const handleDateChange = (newDate) => {
-    // newDate — строка YYYY-MM-DD
     setEditDate(newDate);
   };
 
@@ -289,6 +287,13 @@ function PopBrowse({ card, onClose }) {
             )}
           </BtnBrowse>
         </PopBrowseContent>
+        {showConfirm && (
+          <ConfirmModal
+            message='Вы уверены, что хотите удалить эту задачу?'
+            onConfirm={handleConfirmDelete}
+            onCancel={handleCancelDelete}
+          />
+        )}
       </PopBrowseBlock>
     </PopBrowseOverlay>
   );
