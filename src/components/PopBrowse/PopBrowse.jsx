@@ -237,12 +237,14 @@ function PopBrowse({ card, onClose }) {
             </Categories>
           )}
 
-          <ThemeDown>
-            <StatusP>Категория</StatusP>
-            <CategoriesTheme $colorKey={colorKey} $active={true}>
-              <p>{card.topic}</p>
-            </CategoriesTheme>
-          </ThemeDown>
+          {!isEditing && (
+            <ThemeDown>
+              <StatusP>Категория</StatusP>
+              <CategoriesTheme $colorKey={colorKey} $active={true}>
+                <p>{card.topic}</p>
+              </CategoriesTheme>
+            </ThemeDown>
+          )}
 
           <BtnBrowse>
             {isEditing ? (
