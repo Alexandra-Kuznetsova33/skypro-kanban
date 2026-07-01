@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const CalendarWrapper = styled.div`
   width: 182px;
   margin-bottom: 20px;
+  @media (max-width: 660px) {
+    width: 344px;
+  }
 `;
 
 export const CalendarTitle = styled.p`
@@ -25,6 +28,9 @@ export const CalendarNav = styled.div`
   justify-content: space-between;
   margin-top: 14px;
   padding: 0 7px;
+  @media (max-width: 660px) {
+    padding: 0;
+  }
 `;
 
 export const CalendarMonth = styled.div`
@@ -62,7 +68,7 @@ export const DaysNames = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 7px 0;
-  padding: 0 7px;
+  padding: 0;
   @media (max-width: 660px) {
     justify-content: space-around;  
     padding: 0;
