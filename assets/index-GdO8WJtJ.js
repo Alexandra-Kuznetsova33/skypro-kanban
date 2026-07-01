@@ -1226,6 +1226,10 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   justify-content: space-between;
   margin: 7px 0;
   padding: 0 7px;
+  @media (max-width: 660px) {
+    justify-content: space-around;  
+    padding: 0;
+  }
 `,Wb=H.div`
   color: ${({theme:e})=>e.textGray};
   font-size: 10px;
@@ -1280,6 +1284,10 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
 `,qb=H.div`
   padding: 0 7px;
   margin-top: 4px;
+  @media (max-width: 660px) {
+    padding: 0;
+    white-space: nowrap;          
+  }
 `,Jb=H.p`
   color: ${({theme:e})=>e.textGray};
   font-size: 10px;
@@ -1289,6 +1297,8 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   }
   @media (max-width: 660px) {
     font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
   }
 `;function Yb({deadlineText:e,deadlineDate:t,highlightedDate:n,onDateChange:r}){let i=[`пн`,`вт`,`ср`,`чт`,`пт`,`сб`,`вс`],a=new Date,[o,s]=(0,v.useState)(a.getFullYear()),[c,l]=(0,v.useState)(a.getMonth()),u=[`Январь`,`Февраль`,`Март`,`Апрель`,`Май`,`Июнь`,`Июль`,`Август`,`Сентябрь`,`Октябрь`,`Ноябрь`,`Декабрь`],d=()=>{c===0?(l(11),s(o-1)):l(c-1)},f=()=>{c===11?(l(0),s(o+1)):l(c+1)},p=new Date(o,c+1,0).getDate(),m=new Date(o,c,1).getDay();m===0&&(m=7);let h=[];for(let e=1;e<m;e++)h.push(null);for(let e=1;e<=p;e++)h.push(e);let g=h.length,_=g%7==0?0:7-g%7;for(let e=0;e<_;e++)h.push(null);let y=e=>{if(!n)return!1;let[t,r,i]=n.split(`.`);return e===parseInt(t,10)&&parseInt(r,10)===c+1&&parseInt(i,10)===o%100},b=e=>{let t=new Date;return e===t.getDate()&&c===t.getMonth()&&o===t.getFullYear()},x=e=>{r&&r(`${o}-${String(c+1).padStart(2,`0`)}-${String(e).padStart(2,`0`)}`)};return(0,F.jsxs)(Fb,{children:[(0,F.jsx)(Ib,{children:`Даты`}),(0,F.jsxs)(Lb,{children:[(0,F.jsxs)(Rb,{children:[(0,F.jsx)(zb,{children:`${u[c]} ${o}`}),(0,F.jsxs)(Bb,{children:[(0,F.jsx)(Vb,{onClick:d,children:(0,F.jsx)(`svg`,{xmlns:`http://www.w3.org/2000/svg`,width:`6`,height:`11`,viewBox:`0 0 6 11`,children:(0,F.jsx)(`path`,{d:`M5.72945 1.95273C6.09018 1.62041 6.09018 1.0833 5.72945 0.750969C5.36622 0.416344 4.7754 0.416344 4.41218 0.750969L0.528487 4.32883C-0.176162 4.97799 -0.176162 6.02201 0.528487 6.67117L4.41217 10.249C4.7754 10.5837 5.36622 10.5837 5.72945 10.249C6.09018 9.9167 6.09018 9.37959 5.72945 9.04727L1.87897 5.5L5.72945 1.95273Z`})})}),(0,F.jsx)(Vb,{onClick:f,children:(0,F.jsx)(`svg`,{xmlns:`http://www.w3.org/2000/svg`,width:`6`,height:`11`,viewBox:`0 0 6 11`,children:(0,F.jsx)(`path`,{d:`M0.27055 9.04727C-0.0901833 9.37959 -0.0901832 9.9167 0.27055 10.249C0.633779 10.5837 1.2246 10.5837 1.58783 10.249L5.47151 6.67117C6.17616 6.02201 6.17616 4.97799 5.47151 4.32883L1.58782 0.75097C1.2246 0.416344 0.633778 0.416344 0.270549 0.75097C-0.0901831 1.0833 -0.090184 1.62041 0.270549 1.95273L4.12103 5.5L0.27055 9.04727Z`})})})]})]}),(0,F.jsxs)(Hb,{children:[(0,F.jsx)(Ub,{children:i.map(e=>(0,F.jsx)(Wb,{children:e},e))}),(0,F.jsx)(Gb,{children:h.map((e,t)=>e===null?(0,F.jsx)(Kb,{},`empty-${t}`):(0,F.jsx)(Kb,{$active:y(e),$current:b(e),onClick:()=>x(e),children:e},t))})]}),(0,F.jsx)(qb,{children:(0,F.jsx)(Jb,{children:t?`Срок исполнения: ${t}`:e})})]})]})}var Xb=H.div`
   width: 100%;
@@ -1642,12 +1652,31 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
+  @media (max-width: 495px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `,Rx=H.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+ @media (max-width: 495px) {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
   button {
     height: 30px;
     margin-bottom: 10px;
     padding: 0 14px;
     margin-right: 8px;
+    @media (max-width: 495px) {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 0;
+      padding: 0;
+    }
   }
 `,zx=H.button`
   border-radius: 4px;
@@ -1660,6 +1689,10 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
     background-color: ${({theme:e})=>e.accentFill};
     color: ${({theme:e})=>e.textWhite};
     border: 0.7px solid ${({theme:e})=>e.accentFill};
+  }
+   @media (max-width: 495px) {
+    width: 100%;
+    height: 40px;
   }
 `,Bx=H.button`
   width: 86px;
@@ -1905,10 +1938,13 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   color: ${({theme:e})=>e.textWhite};
   border: none;
   font-size: 14px;
-  line-height: 30px;
+  line-height: 1;
   text-align: center;
   font-weight: 500;
   margin-right: 20px;
+  display: inline-flex;          
+  align-items: center;           
+  justify-content: center;
   cursor: pointer;
   &:hover {
     background-color: ${({theme:e})=>e.accentHover};
