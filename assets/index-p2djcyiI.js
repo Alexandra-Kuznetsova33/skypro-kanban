@@ -1331,7 +1331,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   }
   @media (max-width: 495px) {
     padding: 20px 16px 32px;
-    max-height: 100vh;
+    max-height: 85vh;
   }
 `,Qb=H.div`
   display: block;
@@ -1556,7 +1556,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   }
   @media (max-width: 495px) {
     padding: 20px 16px 32px;
-    max-height: 100vh;         
+    max-height: 85vh;        
   }
 `,wx=H.div`
   display: block;
