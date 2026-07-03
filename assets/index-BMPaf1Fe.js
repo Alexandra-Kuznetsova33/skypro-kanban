@@ -1447,8 +1447,10 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
     background-color: ${({theme:e})=>e.accentHover};
   }
   @media (max-width: 495px) {
+    float: none;
     width: 100%;
     height: 40px;
+    margin-top: 20px;
   }
 `,lx=H.div`
   margin-bottom: 20px;
