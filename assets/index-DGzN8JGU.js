@@ -1320,6 +1320,8 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   background-color: ${({theme:e})=>e.bgWhite};
   max-width: 630px;
   width: 100%;
+  max-height: 90vh;     
+  overflow-y: auto; 
   padding: 40px 30px 48px;
   border-radius: 10px;
   border: 0.7px solid ${({theme:e})=>e.textGray};
@@ -1329,6 +1331,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   }
   @media (max-width: 495px) {
     padding: 20px 16px 32px;
+    max-height: 100vh;
   }
 `,Qb=H.div`
   display: block;
@@ -1542,6 +1545,8 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   background-color: ${({theme:e})=>e.bgWhite};
   max-width: 630px;
   width: 100%;
+  max-height: 90vh;          
+  overflow-y: auto; 
   padding: 40px 30px 38px;
   border-radius: 10px;
   border: 0.7px solid ${({theme:e})=>e.textGray};
@@ -1551,6 +1556,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   }
   @media (max-width: 495px) {
     padding: 20px 16px 32px;
+    max-height: 100vh;         
   }
 `,wx=H.div`
   display: block;
