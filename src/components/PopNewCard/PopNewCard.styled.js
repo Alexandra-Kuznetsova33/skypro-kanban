@@ -169,8 +169,10 @@ export const FormNewCreate = styled.button`
     background-color: ${({ theme }) => theme.accentHover};
   }
   @media (max-width: 495px) {
+    float: none;
     width: 100%;
     height: 40px;
+    margin-top: 20px;
   }
 `;
 
