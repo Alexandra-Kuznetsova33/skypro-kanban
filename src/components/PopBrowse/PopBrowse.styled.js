@@ -30,7 +30,7 @@ export const PopBrowseBlock = styled.div`
   }
   @media (max-width: 495px) {
     padding: 20px 16px 32px;
-    max-height: 100vh;         
+    max-height: 85vh;        
   }
 `;
 
