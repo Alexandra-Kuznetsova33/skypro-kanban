@@ -1320,8 +1320,8 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   background-color: ${({theme:e})=>e.bgWhite};
   max-width: 630px;
   width: 100%;
-  max-height: 90vh;     
-  overflow-y: auto; 
+  max-height: 90vh;
+  overflow-y: auto;
   padding: 40px 30px 48px;
   border-radius: 10px;
   border: 0.7px solid ${({theme:e})=>e.textGray};
